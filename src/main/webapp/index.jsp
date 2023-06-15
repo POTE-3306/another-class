@@ -12,5 +12,7 @@
 <h2>Hello World</h2>
 <a href="t1">링크1</a><br/>
 <a href="main/main">링크1</a><br/>
+<a href="class">class 페이지</a>
+
 
 </body>
