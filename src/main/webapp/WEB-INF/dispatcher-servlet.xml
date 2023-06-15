@@ -30,5 +30,6 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <property name="password" value="${db.password}" />
     </bean>
 
+    <mvc:resources mapping="/login/assets/**" location="/resources/login/assets/" />
 
 </beans>

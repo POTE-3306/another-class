@@ -11,4 +11,6 @@
 <%=new Date()%>
 <h2>Hello World</h2>
 <a href="t1">링크1</a><br/>
+<a href="main/main">링크1</a><br/>
+
 </body>
