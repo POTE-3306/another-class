@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import simple.project.courseplan.CoursePlan;
 import simple.project.courseplan.CoursePlanService;
-import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,7 +56,7 @@ public class CourseController {
         String filePath = courseService.saveImage(image);
         String uuid = UUID.randomUUID().toString();
         course.setUuid(uuid);
-        course.setLogoUrl(filePath);
+        course.setLogo_url(filePath);
         course.setName(title);
         course.setDescription(content);
 
