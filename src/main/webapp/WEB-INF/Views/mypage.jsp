@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: msoo6
-  Date: 2023-06-14
-  Time: 오전 9:47
+  Date: 2023-06-15
+  Time: 오후 4:31
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<h1>TigerView.jsp</h1>
+    <h1>My Page</h1>
 </body>
 </html>
