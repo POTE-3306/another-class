@@ -18,12 +18,10 @@ import java.util.UUID;
 public class CourseController {
     private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
     private final CourseService courseService;
-    private final CoursePlanService coursePlanService;
 
     @Autowired
-    public CourseController(CourseService courseService, CoursePlanService coursePlanService) {
+    public CourseController(CourseService courseService) {
         this.courseService = courseService;
-        this.coursePlanService = coursePlanService;
     }
 
     @GetMapping("make-class")
@@ -35,7 +33,8 @@ public class CourseController {
     public String makeClass(
             @RequestParam("image") MultipartFile image,
             @RequestParam("title") String title,
-            @RequestParam("content") String content
+            @RequestParam("content") String content,
+            Model model
     ) {
         Course course = new Course();
         String filePath = courseService.saveImage(image);
@@ -50,6 +49,7 @@ public class CourseController {
 
         int courseId = courseService.findId(uuid);
         System.out.println(courseId);
+        model.addAttribute("courseId", courseId);
         return "/makeCoursePlan";
     }
 

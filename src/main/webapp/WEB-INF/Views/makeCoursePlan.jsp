@@ -6,6 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    int courseId = (int) request.getAttribute("courseId");
+    System.out.println(courseId);
+%>
 <!-- mypage.jsp -->
 
 <!DOCTYPE html>
@@ -18,9 +22,13 @@
 <body>
 <div class="container">
     <h1>강의 운영 계획 작성</h1>
-    <form action="/courseplan/insert-plan" method="post">
+    <form action="/course/insert-plan" method="post">
         <div class="form-group">
-            <label for="title">강의 운영 계획:</label>
+            <label for="courseId"></label>
+            <input type="hidden" id="courseId" name="courseId" value="<%= courseId %>">
+        </div>
+        <div class="form-group">
+            <label for="title">강의 계획:</label>
             <input type="text" id="title" name="title" required>
         </div>
         <div class="form-group">
@@ -31,6 +39,7 @@
             <button type="submit">Submit</button>
         </div>
     </form>
+
 </div>
 </body>
 </html>

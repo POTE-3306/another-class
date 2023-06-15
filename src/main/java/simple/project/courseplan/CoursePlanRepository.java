@@ -14,7 +14,7 @@ public class CoursePlanRepository {
     }
 
     public void insert(CoursePlan coursePlan){
-        String sql= "INSERT INTO couresplan (course_id, title, description) VALUES (?,?,?)";
+        String sql = "INSERT INTO courseplans (course_id, title, description) VALUES (?,?,?)";
         jdbcTemplate.update(sql, coursePlan.getCourseId(), coursePlan.getTitle(), coursePlan.getDescription());
     }
 }
