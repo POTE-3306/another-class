@@ -9,4 +9,8 @@ public class CoursePlanService {
     public CoursePlanService(CoursePlanRepository coursePlanRepository) {
         this.coursePlanRepository = coursePlanRepository;
     }
+
+    public void insertCoursePlan(CoursePlan coursePlan){
+        coursePlanRepository.insert(coursePlan);
+    }
 }

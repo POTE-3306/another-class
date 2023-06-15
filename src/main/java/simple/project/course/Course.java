@@ -1,18 +1,50 @@
 package simple.project.course;
-
-import java.time.LocalDateTime;
+import java.util.UUID;
+import java.sql.Timestamp;
 
 public class Course {
-    int id;
-    int userId;
-    int courseId;
-    LocalDateTime attendanceTime;
+    private int id;
+    private String uuid;
+    private String name;
+    private String logoUrl;
+    private String description;
+    private int adminId;
+    private int code;
+    private Timestamp limitTime;
+    private int lectureDays;
+    private boolean isActive;
 
-    public Course(int id, int userId, int courseId, LocalDateTime attendanceTime) {
-        this.id = id;
-        this.userId = userId;
-        this.courseId = courseId;
-        this.attendanceTime = attendanceTime;
+    // Constructors, getters, and setters
+
+    public Course() {
+        this.uuid = UUID.randomUUID().toString();
+    }
+
+    public Course(String name, String logoUrl, String description, int adminId, int code, Timestamp limitTime, int lectureDays) {
+        this();
+        this.name = name;
+        this.logoUrl = logoUrl;
+        this.description = description;
+        this.adminId = adminId;
+        this.code = code;
+        this.limitTime = limitTime;
+        this.lectureDays = lectureDays;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "id=" + id +
+                ", uuid=" + uuid +
+                ", name='" + name + '\'' +
+                ", logoUrl='" + logoUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", adminId=" + adminId +
+                ", code=" + code +
+                ", limitTime=" + limitTime +
+                ", lectureDays=" + lectureDays +
+                ", isActive=" + isActive +
+                '}';
     }
 
     public int getId() {
@@ -23,27 +55,75 @@ public class Course {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public String getName() {
+        return name;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public LocalDateTime getAttendanceTime() {
-        return attendanceTime;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
-    public void setAttendanceTime(LocalDateTime attendanceTime) {
-        this.attendanceTime = attendanceTime;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(int adminId) {
+        this.adminId = adminId;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public Timestamp getLimitTime() {
+        return limitTime;
+    }
+
+    public void setLimitTime(Timestamp limitTime) {
+        this.limitTime = limitTime;
+    }
+
+    public int getLectureDays() {
+        return lectureDays;
+    }
+
+    public void setLectureDays(int lectureDays) {
+        this.lectureDays = lectureDays;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean isActive) {
+        this.isActive = isActive;
     }
 }

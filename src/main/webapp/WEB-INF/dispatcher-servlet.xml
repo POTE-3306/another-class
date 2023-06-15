@@ -29,6 +29,8 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <property name="username" value="${db.username}" />
         <property name="password" value="${db.password}" />
     </bean>
-
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5242880"/> <!-- Set the maximum file size if needed -->
+    </bean>
 
 </beans>
