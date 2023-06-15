@@ -54,10 +54,10 @@ public class CourseService {
         return courseRepository.findId(uuid);
     }
 
-    public Course getCourseById(int courseId) {
-        // Call the appropriate method in your repository or data access layer to retrieve the course by courseId
-        return courseRepository.getCourseById(courseId);
-    }
+//    public Course getCourseById(int courseId) {
+//        // Call the appropriate method in your repository or data access layer to retrieve the course by courseId
+//        return courseRepository.getCourseById(courseId);
+//    }
     public List<Course> getAllCourse(){
         return courseRepository.findAll();
     }

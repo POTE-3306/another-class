@@ -1,50 +1,33 @@
 package simple.project.course;
-import java.util.UUID;
-import java.sql.Timestamp;
+
+import java.time.LocalDateTime;
 
 public class Course {
-    private int id;
-    private String uuid;
-    private String name;
-    private String logoUrl;
-    private String description;
-    private int adminId;
-    private int code;
-    private Timestamp limitTime;
-    private int lectureDays;
-    private boolean isActive;
-
-    // Constructors, getters, and setters
+    Integer id;
+    String uuid;
+    String name;
+    String logo_url;
+    String description;
+    Integer admin_id;
+    Integer code;
+    LocalDateTime limit_time;
+    Integer lecture_dats;
+    boolean in_activate;
 
     public Course() {
-        this.uuid = UUID.randomUUID().toString();
     }
 
-    public Course(String name, String logoUrl, String description, int adminId, int code, Timestamp limitTime, int lectureDays) {
-        this();
+    public Course(int id, String uuid, String name, String logo_url, String description, int admin_id, int code, LocalDateTime limit_time, int lecture_dats, boolean in_activate) {
+        this.id = id;
+        this.uuid = uuid;
         this.name = name;
-        this.logoUrl = logoUrl;
+        this.logo_url = logo_url;
         this.description = description;
-        this.adminId = adminId;
+        this.admin_id = admin_id;
         this.code = code;
-        this.limitTime = limitTime;
-        this.lectureDays = lectureDays;
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", uuid=" + uuid +
-                ", name='" + name + '\'' +
-                ", logoUrl='" + logoUrl + '\'' +
-                ", description='" + description + '\'' +
-                ", adminId=" + adminId +
-                ", code=" + code +
-                ", limitTime=" + limitTime +
-                ", lectureDays=" + lectureDays +
-                ", isActive=" + isActive +
-                '}';
+        this.limit_time = limit_time;
+        this.lecture_dats = lecture_dats;
+        this.in_activate = in_activate;
     }
 
     public int getId() {
@@ -59,6 +42,10 @@ public class Course {
         return uuid;
     }
 
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     public String getName() {
         return name;
     }
@@ -67,16 +54,12 @@ public class Course {
         this.name = name;
     }
 
-    public String getLogoUrl() {
-        return logoUrl;
+    public String getLogo_url() {
+        return logo_url;
     }
 
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setLogo_url(String logo_url) {
+        this.logo_url = logo_url;
     }
 
     public String getDescription() {
@@ -87,12 +70,12 @@ public class Course {
         this.description = description;
     }
 
-    public int getAdminId() {
-        return adminId;
+    public int getAdmin_id() {
+        return admin_id;
     }
 
-    public void setAdminId(int adminId) {
-        this.adminId = adminId;
+    public void setAdmin_id(int admin_id) {
+        this.admin_id = admin_id;
     }
 
     public int getCode() {
@@ -103,27 +86,27 @@ public class Course {
         this.code = code;
     }
 
-    public Timestamp getLimitTime() {
-        return limitTime;
+    public LocalDateTime getLimit_time() {
+        return limit_time;
     }
 
-    public void setLimitTime(Timestamp limitTime) {
-        this.limitTime = limitTime;
+    public void setLimit_time(LocalDateTime limit_time) {
+        this.limit_time = limit_time;
     }
 
-    public int getLectureDays() {
-        return lectureDays;
+    public int getLecture_dats() {
+        return lecture_dats;
     }
 
-    public void setLectureDays(int lectureDays) {
-        this.lectureDays = lectureDays;
+    public void setLecture_dats(int lecture_dats) {
+        this.lecture_dats = lecture_dats;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public boolean isIn_activate() {
+        return in_activate;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setIn_activate(boolean in_activate) {
+        this.in_activate = in_activate;
     }
 }
