@@ -6,8 +6,8 @@
     <title>Spectral by HTML5 UP</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/another-class/login/assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="/another-class/login/assets/css/noscript.css" /></noscript>
+    <link rel="stylesheet" href="/resources/login/assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="/resources/login/assets/css/noscript.css" /></noscript>
 </head>
 <%
     SecureRandom random = new SecureRandom();
@@ -69,12 +69,12 @@
         </footer>
     </div>
 
-    <script src="/another-class/login/assets/js/jquery.min.js"></script>
-    <script src="/another-class/login/assets/js/jquery.scrollex.min.js"></script>
-    <script src="/another-class/login/assets/js/jquery.scrolly.min.js"></script>
-    <script src="/another-class/login/assets/js/browser.min.js"></script>
-    <script src="/another-class/login/assets/js/breakpoints.min.js"></script>
-    <script src="/another-class/login/assets/js/util.js"></script>
-    <script src="/another-class/login/assets/js/main.js"></script>
+    <script src="/resources/login/assets/js/jquery.min.js"></script>
+    <script src="/resources/login/assets/js/jquery.scrollex.min.js"></script>
+    <script src="/resources/login/assets/js/jquery.scrolly.min.js"></script>
+    <script src="/resources/login/assets/js/browser.min.js"></script>
+    <script src="/resources/login/assets/js/breakpoints.min.js"></script>
+    <script src="/resources/login/assets/js/util.js"></script>
+    <script src="/resources/login/assets/js/main.js"></script>
 </body>
 </html>
