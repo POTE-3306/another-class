@@ -11,7 +11,7 @@ public class Course {
     Integer admin_id;
     Integer code;
     LocalDateTime limit_time;
-    Integer lecture_dats;
+    Integer lecture_days;
     boolean in_activate;
 
     public Course() {
@@ -26,7 +26,7 @@ public class Course {
         this.admin_id = admin_id;
         this.code = code;
         this.limit_time = limit_time;
-        this.lecture_dats = lecture_dats;
+        this.lecture_days = lecture_dats;
         this.in_activate = in_activate;
     }
 
@@ -94,12 +94,12 @@ public class Course {
         this.limit_time = limit_time;
     }
 
-    public int getLecture_dats() {
-        return lecture_dats;
+    public int getLecture_days() {
+        return lecture_days;
     }
 
-    public void setLecture_dats(int lecture_dats) {
-        this.lecture_dats = lecture_dats;
+    public void setLecture_days(int lecture_days) {
+        this.lecture_days = lecture_days;
     }
 
     public boolean isIn_activate() {

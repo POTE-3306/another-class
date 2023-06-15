@@ -40,12 +40,12 @@ public class CourseController {
         model.addAttribute("courseList", courseList);
         return "classList";
     }
-    @GetMapping("make-class")
+    @GetMapping("/course/make-class")
     public String makeClassPage() {
         return "/makeClass";
     }
 
-    @PostMapping("insert-class")
+    @PostMapping("/course/insert-class")
     public String makeClass(
             @RequestParam("image") MultipartFile image,
             @RequestParam("title") String title,
@@ -70,7 +70,7 @@ public class CourseController {
     }
 
 
-    @GetMapping("makeCoursePlan")
+    @GetMapping("/course/makeCoursePlan")
     public String makeCoursePlan(@RequestParam("courseId") int courseId, Model model) {
         // Retrieve the course details based on the courseId
         Course course = courseService.getCourseById(courseId);
