@@ -7,18 +7,23 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import simple.project.post.Post;
+import simple.project.post.PostService;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class UserController {
     private final UserService userService;
     private final NaverAPI naverAPI;
     private final JWToken jwToken;
+    private final PostService postService;
 
     @Autowired
-    public UserController(UserService userService, NaverAPI naverAPI, JWToken jwToken) {
+    public UserController(UserService userService, PostService postService, NaverAPI naverAPI, JWToken jwToken) {
+        this.postService = postService;
         this.userService = userService;
         this.naverAPI = naverAPI;
         this.jwToken = jwToken;
@@ -80,10 +85,13 @@ public class UserController {
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
+            List<Post> postList = postService.getByUserIdPost(user.getId());
             if (user == null) {
                 return "login/main";
             }
+            model.addAttribute("postList", postList);
             model.addAttribute("user", user);
+
         } catch (Exception e) {
             e.printStackTrace();
             return "login/main";

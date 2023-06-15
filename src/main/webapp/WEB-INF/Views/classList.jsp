@@ -12,6 +12,11 @@
     <title>Title</title>
 </head>
 <body>
+<form action="#" method="get">
+    <input type="text" id="search" name="search">
+    <input type="submit" value="Submit">
+    <br>
+</form>
 <%
     List<Course> courseList = (List<Course>) request.getAttribute("courseList");
 %>
