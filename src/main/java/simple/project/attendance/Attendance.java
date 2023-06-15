@@ -9,6 +9,9 @@ public class Attendance {
     String content;
     LocalDateTime commentTime;
 
+    public Attendance() {
+    }
+
     public Attendance(int id, int postId, int authorId, String content, LocalDateTime commentTime) {
         this.id = id;
         this.postId = postId;
