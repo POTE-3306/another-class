@@ -14,7 +14,6 @@
 <body>
 <%
     List<Course> courseList = (List<Course>) request.getAttribute("courseList");
-    %>
 %>
 <h1>classList</h1>
 <div>
