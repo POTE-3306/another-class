@@ -9,16 +9,6 @@ public class User {
     boolean isAdmin;
     String naverId;
 
-    public User(int id, String name, String email, int age, char gender, boolean isAdmin, String naverId) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.age = age;
-        this.gender = gender;
-        this.isAdmin = isAdmin;
-        this.naverId = naverId;
-    }
-
     public int getId() {
         return id;
     }
@@ -51,12 +41,12 @@ public class User {
         this.age = age;
     }
 
-    public char getGender() {
-        return gender;
-    }
-
     public void setGender(char gender) {
         this.gender = gender;
+    }
+
+    public char getGender() {
+        return gender;
     }
 
     public boolean isAdmin() {

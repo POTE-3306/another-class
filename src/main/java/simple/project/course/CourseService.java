@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
+import java.util.List;
+
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
@@ -56,5 +58,15 @@ public class CourseService {
         // Call the appropriate method in your repository or data access layer to retrieve the course by courseId
         return courseRepository.getCourseById(courseId);
     }
+    public List<Course> getAllCourse(){
+        return courseRepository.findAll();
+    }
 
+    public List<Course> getByAdminIdCourse(int adminId){
+        return courseRepository.findByAdminId(adminId);
+    }
+
+    public List<Course> getByUserIdCourse(int userId) {
+        return courseRepository.findByUserId(userId);
+    }
 }

@@ -33,4 +33,6 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <property name="maxUploadSize" value="5242880"/> <!-- Set the maximum file size if needed -->
     </bean>
 
+    <mvc:resources mapping="/login/assets/**" location="/resources/login/assets/" />
+
 </beans>

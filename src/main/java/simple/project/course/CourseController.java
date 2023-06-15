@@ -10,11 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import simple.project.courseplan.CoursePlan;
 import simple.project.courseplan.CoursePlanService;
-
+import io.jsonwebtoken.Claims;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("course")
 public class CourseController {
     private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
     private final CourseService courseService;
@@ -24,6 +29,18 @@ public class CourseController {
         this.courseService = courseService;
     }
 
+    @RequestMapping("class")
+    public String someMethod(HttpSession session, Model model){
+//        String token = (String) session.getAttribute("token");
+//        if (token == null){
+//            return "login/main";
+//        }
+        int userId = 2;
+//        model.addAttribute("userId", userId);
+        List<Course> courseList = courseService.getByUserIdCourse(userId);
+        model.addAttribute("courseList", courseList);
+        return "classList";
+    }
     @GetMapping("make-class")
     public String makeClassPage() {
         return "/makeClass";
