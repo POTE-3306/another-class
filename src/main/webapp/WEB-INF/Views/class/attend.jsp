@@ -29,12 +29,18 @@
 <a href="#"></a>
 <%
   ArrayList<String> list = new ArrayList<>();
-
+  String userName = "";
+  String courseName = "";
+  int countAtend = 0;
   for (int userId : map.keySet()) {
-    System.out.print(userId + " : ");
     list = map.get(userId);
-    System.out.println(list.get(0) +" "+list.get(1) +" "+list.get(2));
+    userName = list.get(0);
+    courseName = list.get(1);
+    countAtend = Integer.parseInt(list.get(2));
   }
+  System.out.println("1 : " +userName);
+  System.out.println("2 : " +courseName);
+  System.out.println("3 : " +countAtend);
 %>
 
 </body>
