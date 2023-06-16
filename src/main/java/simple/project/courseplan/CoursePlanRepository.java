@@ -2,6 +2,7 @@ package simple.project.courseplan;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,9 +16,25 @@ public class CoursePlanRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    private RowMapper<CoursePlan> getRowMapper(){
+        return (rs, rowNum) -> new CoursePlan(
+                rs.getInt("id"),
+                rs.getInt("course_id"),
+                rs.getString("title"),
+                rs.getString("description")
+        );
+    }
+
     public void insert(CoursePlan coursePlan){
         String sql = "INSERT INTO courseplans (course_id, title, description) VALUES (?,?,?)";
         jdbcTemplate.update(sql, coursePlan.getCourseId(), coursePlan.getTitle(), coursePlan.getDescription());
+    }
+
+    public CoursePlan findByCourseId(int courseId){
+        String query = String.format("select * from CoursePlans where course_id=%d", courseId);
+        CoursePlan coursePlan = jdbcTemplate.queryForObject(query, getRowMapper());
+        return coursePlan;
+
     }
     public List<CoursePlan> getCoursePlanList(int courseId) {
         String sql = "SELECT ID, TITLE, DESCRIPTION FROM COURSEPLANS WHERE COURSE_ID = ?";

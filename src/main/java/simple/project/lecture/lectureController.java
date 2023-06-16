@@ -15,50 +15,60 @@ import simple.project.user.UserService;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import simple.project.course.Course;
+import simple.project.course.CourseService;
+import simple.project.courseplan.CoursePlan;
+import simple.project.courseplan.CoursePlanService;
+import simple.project.user.JWToken;
+import simple.project.user.User;
+import simple.project.user.UserService;
+
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("class")
 public class lectureController {
+    private final JWToken jwToken;
     private final UserService userService;
     private final CoursePlanService coursePlanService;
-    private final JWToken jwToken;
-
+    private final CourseService courseService;
 
     @Autowired
-    public lectureController(UserService userService, CoursePlanService coursePlanService, JWToken jwToken){
+    public lectureController(JWToken jwToken, UserService userService, CoursePlanService coursePlanService, CourseService courseService) {
+        this.jwToken = jwToken;
         this.userService = userService;
         this.coursePlanService = coursePlanService;
-        this.jwToken = jwToken;
+        this.courseService = courseService;
     }
 
-    @GetMapping("/test/{class_id}")
+
+    @RequestMapping("{class_id}")
     public String someMethod(
+            HttpSession session,
             Model model,
-            @PathVariable("class_id") String classId,
-            HttpSession session
+            @PathVariable("class_id") String classId
     ){
-        User user = new User();
         String token = (String) session.getAttribute("token");
         if (token == null) {
             return "login/main";
         }
         try {
             Claims claims = jwToken.getClaims(token);
-            user = userService.getUserByToken(claims);
-        }catch (Exception e ){
+            User user = userService.getUserByToken(claims);
+            Course course = courseService.getCourseById(Integer.parseInt(classId));
+            CoursePlan coursePlan = coursePlanService.getByCourseId(Integer.parseInt(classId));
+            if (user == null) {
+                return "login/main";
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("course", course);
+            model.addAttribute("coursePlan", coursePlan);
+            model.addAttribute("classId", classId);
+        } catch (Exception e){
             e.printStackTrace();
+            return "login/main";
         }
-
-        List<CoursePlan> coursePlanList = coursePlanService.getCoursePlanList(Integer.parseInt(classId));
-
-        model.addAttribute("classId", classId);
-        model.addAttribute("userInfo", user);
-        model.addAttribute("plans", coursePlanList);
-
-        System.out.println(classId);
-        System.out.println(user);
-        System.out.println(coursePlanList);
-
         return "class/mainClass";
     }
 }

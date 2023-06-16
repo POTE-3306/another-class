@@ -6,6 +6,8 @@ import simple.project.course.Course;
 
 import java.util.List;
 
+import java.util.List;
+
 @Service
 public class CoursePlanService {
     private final CoursePlanRepository coursePlanRepository;
@@ -18,6 +20,8 @@ public class CoursePlanService {
     public void insertCoursePlan(CoursePlan coursePlan){
         coursePlanRepository.insert(coursePlan);
     }
+
+    public CoursePlan getByCourseId(int courseId){ return coursePlanRepository.findByCourseId(courseId);}
 
     public List<CoursePlan> getCoursePlanList(int courseId){return coursePlanRepository.getCoursePlanList(courseId);}
 }
