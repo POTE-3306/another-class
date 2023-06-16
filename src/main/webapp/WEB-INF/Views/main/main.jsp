@@ -65,7 +65,7 @@
                                         box-shadow: 0px 0px 10px #999;
                                         background-color: rgba(255,255,255,0.83);
                                 ">
-                                <img src="/another-class/main/assets/image/<%=course.getLogo_url()%>.png" alt="" class="left" />
+                                <img src="/another-class/main/assets/image/<%=course.getLogo_url()%>" alt="" class="left" />
                                 <a href="#"> <div>
                                     <a href=<%=String.format("/another-class/lecture/%d", course.getId())%>>
                                     <h3><%=course.getName()%></h3>
