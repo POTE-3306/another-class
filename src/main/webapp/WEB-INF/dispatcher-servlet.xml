@@ -32,7 +32,24 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
         <property name="maxUploadSize" value="5242880"/> <!-- Set the maximum file size if needed -->
     </bean>
+
     <mvc:resources mapping="/login/assets/**" location="/resources/login/assets/" />
     <mvc:resources mapping="/main/assets/**" location="/resources/main/assets/" />
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/register/**"/>
+            <mvc:mapping path="/lecture/**"/>
+            <mvc:mapping path="/course/**"/>
+            <mvc:mapping path="/post/**"/>
+            <mvc:mapping path="/common/**"/>
+            <mvc:mapping path="/comment/**"/>
+            <mvc:mapping path="/attendance/**"/>
+            <bean class="simple.project.config.SessionInterceptor">
+                <constructor-arg ref="userService"/>
+                <constructor-arg ref="jwToken"/>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
 </beans>
