@@ -10,8 +10,12 @@ public class RegistrationService {
         this.registrationRepository = registrationRepository;
     }
 
-    public void register(int userId, int courseId) {
+    public boolean register(int userId, int courseId) {
+        if (!registrationRepository.findRegistration(userId, courseId)) {
+            return false;
+        }
         registrationRepository.register(userId, courseId);
+        return true;
     }
 
     public void adminRegister(int userId, int courseId) {
