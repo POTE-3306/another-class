@@ -8,7 +8,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     int courseId = (int) request.getAttribute("courseId");
-    System.out.println(courseId);
 %>
 <!-- mypage.jsp -->
 

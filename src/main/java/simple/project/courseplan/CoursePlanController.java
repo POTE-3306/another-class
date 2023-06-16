@@ -24,13 +24,11 @@ public class CoursePlanController {
             @RequestParam("courseId") String courseId,
             @RequestParam("title") String title,
             @RequestParam("content") String content){
-        System.out.println("1 : " + courseId);
         CoursePlan coursePlan = new CoursePlan();
         coursePlan.setTitle(title);
         int id = Integer.parseInt(courseId);
         coursePlan.setCourseId(id);
         coursePlan.setDescription(content);
-        System.out.println("courseplan : " + title);
         coursePlanService.insertCoursePlan(coursePlan);
 
         return "redirect:/t5";
