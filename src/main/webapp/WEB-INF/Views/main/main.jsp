@@ -37,9 +37,10 @@
 
     <div id="main">
         <div class="container">
-            <div class="row main-row">
+            <div class="row main-row" >
                 <div class="col-10 col-12-medium" style="text-align: right;">
-                    <button onclick="window.location.href='/course/make-class'" style="                                                         border-radius: 5px;
+                    <button onclick="window.location.href='/course/make-class'" style="
+                                                         border-radius: 5px;
                                                          border: none;
                                                          color: #fff;
                                                          background-color: #007b9d;
@@ -49,6 +50,8 @@
                 <div class="col-2 col-12-medium">
                 </div>
             </div>
+            <br/>
+            <br/>
             <div class="row main-row">
                 <div class="col-10 col-12-medium">
                     <section>
