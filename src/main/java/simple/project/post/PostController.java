@@ -8,20 +8,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import simple.project.course.CourseController;
+import simple.project.course.Course;
+import simple.project.course.CourseService;
+import simple.project.user.User;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 @Controller
+@RequestMapping("post")
 public class PostController {
     private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
     private final PostService postService;
+    private final CourseService courseService;
 
     @Autowired
-    public PostController(PostService postService) {
+    public PostController(PostService postService, CourseService courseService) {
         this.postService = postService;
+        this.courseService = courseService;
     }
 
     @RequestMapping("/classMain")
@@ -34,6 +40,22 @@ public class PostController {
         model.addAttribute("postInfoList", postInfoList);
 
         return "class/mainClass";
+    }
+
+    @RequestMapping("main")
+    public String main(HttpServletRequest request, Model model) {
+        User user = (User) request.getAttribute("user");
+        try {
+            List<Post> postList = postService.getByUserIdPost(user.getId());
+            List<Course> courseList = courseService.getByUserIdCourse(user.getId());
+            model.addAttribute("postList", postList);
+            model.addAttribute("user", user);
+            model.addAttribute("courseList", courseList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "index";
+        }
+        return "main/main";
     }
 
     @GetMapping("/class/Notice")
