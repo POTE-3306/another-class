@@ -13,7 +13,7 @@
     <title>Another Class</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link rel="stylesheet" href="/another-class/main/assets/css/main.css" />
+    <link rel="stylesheet" href="/another-class/main/assets/css/main.css"/>
 </head>
 <body>
 <div id="page-wrapper">
@@ -60,33 +60,6 @@
                             </li>
 
                             <%} %>
-                            <li>
-                                <img src="images/pic3.jpg" alt="" class="left" />
-                                <a href="#"> <div>
-                                    <h3>Magna Gravida Dolore</h3>
-                                    <p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo
-                                        facilisis amet quis consectetur in, sollicitudin vitae justo. Cras
-                                        Maecenas eu arcu purus, phasellus fermentum elit.</p>
-                                </div> </a>
-                            </li>
-                            <li>
-                                <img src="images/pic4.jpg" alt="" class="left" />
-                                <a href="#"> <div>
-                                    <h3>Magna Gravida Dolore</h3>
-                                    <p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo
-                                        facilisis amet quis consectetur in, sollicitudin vitae justo. Cras
-                                        Maecenas eu arcu purus, phasellus fermentum elit.</p>
-                                </div> </a>
-                            </li>
-                            <li>
-                                <img src="images/pic5.jpg" alt="" class="left" />
-                                <a href="#"> <div>
-                                    <h3>Magna Gravida Dolore</h3>
-                                    <p>Varius nibh. Suspendisse vitae magna eget et amet mollis justo
-                                        facilisis amet quis consectetur in, sollicitudin vitae justo. Cras
-                                        Maecenas eu arcu purus, phasellus fermentum elit.</p>
-                                </div> </a>
-                            </li>
                         </ul>
                     </section>
                 </div>

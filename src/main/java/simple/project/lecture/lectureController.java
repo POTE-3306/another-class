@@ -62,7 +62,6 @@ public class lectureController {
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
-            System.out.println("class id : " + classId);
             Course course = courseService.getCourseById(Integer.parseInt(classId));
             CoursePlan coursePlan = coursePlanService.getByCourseId(Integer.parseInt(classId));
             ArrayList<Integer> postIds = postService.getPostsByAuthor(user.getId());

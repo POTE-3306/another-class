@@ -38,9 +38,6 @@
     courseName = list.get(1);
     countAtend = Integer.parseInt(list.get(2));
   }
-  System.out.println("1 : " +userName);
-  System.out.println("2 : " +courseName);
-  System.out.println("3 : " +countAtend);
 %>
 
 </body>

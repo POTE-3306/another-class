@@ -90,7 +90,6 @@ public class CourseController {
         courseService.makeClass(course);
 
         int courseId = courseService.findId(uuid);
-        System.out.println(courseId);
         model.addAttribute("courseId", courseId);
         return "/makeCoursePlan";
     }
