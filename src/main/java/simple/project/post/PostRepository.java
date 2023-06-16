@@ -58,12 +58,12 @@ public class PostRepository {
     }
 
     public List<HashMap<Integer, ArrayList<String>>> getPostList(ArrayList<Integer> postlist) {
-        String sql = "SELECT posts.id, title, COUNT(c.post_id) AS 댓글수 " +
-                "FROM posts " +
-                "JOIN comments c ON posts.id = c.post_id " +
-                "JOIN users u ON u.id = c.author_id " +
-                "WHERE posts.id = ? " +
-                "GROUP BY posts.id, title, c.post_id";
+        String sql = "SELECT Posts.id, title, COUNT(c.post_id) AS 댓글수 " +
+                "FROM Posts " +
+                "JOIN Comments c ON Posts.id = c.post_id " +
+                "JOIN Users u ON u.id = c.author_id " +
+                "WHERE Posts.id = ? " +
+                "GROUP BY Posts.id, title, c.post_id";
 
         List<HashMap<Integer, ArrayList<String>>> postList = new ArrayList<>();
 
@@ -85,6 +85,11 @@ public class PostRepository {
         }
 
         return postList;
+    }
+    public List<Post> findByClassIdAndBoardType(int classId, int boardType){
+        String query = String.format("select * from Posts where course_id=%d and board_type=%d", classId, boardType);
+        List<Post> classPostList = jdbcTemplate.query(query, getRowMapper());
+        return classPostList;
     }
 
     public List<Post> getPosts(int courseId, int boardType) {

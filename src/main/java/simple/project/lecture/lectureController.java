@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import simple.project.courseplan.CoursePlan;
 import simple.project.courseplan.CoursePlanService;
+import simple.project.post.Post;
 import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
@@ -85,7 +86,6 @@ public class lectureController {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
 
-
             if (user == null) {
                 return "index";
             }
@@ -95,7 +95,7 @@ public class lectureController {
             e.printStackTrace();
             return "index";
         }
-        return "redirect:class/community/notice";
+        return String.format("redirect:/lecture/%s/community/notice", classId);
     }
     @RequestMapping("{class_id}/community/notice")
     public String communityNoticePage(
@@ -104,18 +104,22 @@ public class lectureController {
             @PathVariable("class_id") String classId
     ){
         String token = (String) session.getAttribute("token");
+        Integer pageType = 1;
         if (token == null) {
             return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
-
+            List<Post> postList = postService.getByClassIdAndBoardType(Integer.parseInt(classId), pageType);
 
             if (user == null) {
                 return "index";
             }
             model.addAttribute("user", user);
+            model.addAttribute("postList", postList);
+            model.addAttribute("classId", classId);
+            model.addAttribute("pageType",pageType);
 
         } catch (Exception e){
             e.printStackTrace();
@@ -130,18 +134,81 @@ public class lectureController {
             @PathVariable("class_id") String classId
     ){
         String token = (String) session.getAttribute("token");
+        Integer pageType = 2;
         if (token == null) {
             return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
+            List<Post> postList = postService.getByClassIdAndBoardType(Integer.parseInt(classId), pageType);
+            if (user == null) {
+                return "index";
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("postList", postList);
+            model.addAttribute("classId", classId);
+            model.addAttribute("pageType",pageType);
 
+        } catch (Exception e){
+            e.printStackTrace();
+            return "index";
+        }
+        return "class/community";
+    }
+    @RequestMapping("{class_id}/community/talk")
+    public String communityTalkPage(
+            HttpSession session,
+            Model model,
+            @PathVariable("class_id") String classId
+    ){
+        String token = (String) session.getAttribute("token");
+        Integer pageType = 4;
+        if (token == null) {
+            return "index";
+        }
+        try {
+            Claims claims = jwToken.getClaims(token);
+            User user = userService.getUserByToken(claims);
+            List<Post> postList = postService.getByClassIdAndBoardType(Integer.parseInt(classId), pageType);
 
             if (user == null) {
                 return "index";
             }
             model.addAttribute("user", user);
+            model.addAttribute("postList", postList);
+            model.addAttribute("classId", classId);
+            model.addAttribute("pageType",pageType);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return "index";
+        }
+        return "class/community";
+    }
+    @RequestMapping("{class_id}/community/material")
+    public String communityProgressPage(
+            HttpSession session,
+            Model model,
+            @PathVariable("class_id") String classId
+    ){
+        String token = (String) session.getAttribute("token");
+        Integer pageType = 3;
+        if (token == null) {
+            return "index";
+        }
+        try {
+            Claims claims = jwToken.getClaims(token);
+            User user = userService.getUserByToken(claims);
+            List<Post> postList = postService.getByClassIdAndBoardType(Integer.parseInt(classId), pageType);
+
+            if (user == null) {
+                return "index";
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("postList", postList);
+            model.addAttribute("classId", classId);
+            model.addAttribute("pageType",pageType);
 
         } catch (Exception e){
             e.printStackTrace();
