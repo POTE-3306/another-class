@@ -1,4 +1,4 @@
-<%--
+<%@ page import="simple.project.user.User" %><%--
   Created by IntelliJ IDEA.
   User: Kim
   Date: 2023-06-15
@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+  User user = (User) request.getAttribute("user");
+%>
 <!-- mypage.jsp -->
 
 <!DOCTYPE html>
@@ -18,10 +21,14 @@
 <body>
 <div class="container">
   <h1>강의 열기</h1>
-  <form action="/course/insert-class" method="post" enctype="multipart/form-data">
+  <form action="/another-class/course/insert-class" method="post" enctype="multipart/form-data">
     <div class="form-group">
       <label for="image">Image:</label>
       <input type="file" id="image" name="image" accept="image/*" required>
+    </div>
+    <div class="form-group">
+      <label for="userId"></label>
+      <input type="hidden" id="userId" name="userId" value="<%= user.getId() %>">
     </div>
     <div class="form-group">
       <label for="title">강의명:</label>
