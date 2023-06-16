@@ -3,12 +3,11 @@ package simple.project.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import simple.project.user.JWToken;
-import simple.project.user.NaverAPI;
 
 @Configuration
-public class APIConfig {
+public class TokenConfig {
     @Bean
-    public NaverAPI naverAPI() {
-        return new NaverAPI();
+    public JWToken jwToken() {
+        return new JWToken();
     }
 }
