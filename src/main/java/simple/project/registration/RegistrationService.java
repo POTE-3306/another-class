@@ -9,4 +9,8 @@ public class RegistrationService {
     public RegistrationService(RegistrationRepository registrationRepository) {
         this.registrationRepository = registrationRepository;
     }
+
+    public void register(int userId, int courseId) {
+        registrationRepository.register(userId, courseId);
+    }
 }

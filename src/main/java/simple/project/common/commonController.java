@@ -30,20 +30,20 @@ public class commonController {
     ){
         String token = (String) session.getAttribute("token");
         if (token == null) {
-            return "login/main";
+            return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
 
             if (user == null) {
-                return "login/main";
+                return "index";
             }
 
             model.addAttribute("user", user);
         } catch (Exception e){
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
         return "mypage";
     }

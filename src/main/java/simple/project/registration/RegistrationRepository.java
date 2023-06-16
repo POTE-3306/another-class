@@ -25,4 +25,8 @@ public class RegistrationRepository {
     public RegistrationRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
+
+    public void register(int userId, int courseId) {
+        jdbcTemplate.update("INSERT INTO Registrations (user_id, course_id) VALUES (?, ?)", userId, courseId);
+    }
 }

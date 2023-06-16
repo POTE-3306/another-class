@@ -69,7 +69,7 @@ public class CourseService {
         return courseRepository.findByAdminId(adminId);
     }
 
-    public List<Course> getByUserIdCourse(int userId, boolean isAdmin) {
-        return courseRepository.findByUserId(userId, isAdmin);
+    public List<Course> getByUserIdCourse(int userId) {
+        return courseRepository.findByUserId(userId);
     }
 }

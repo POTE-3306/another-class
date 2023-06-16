@@ -31,8 +31,8 @@ public class PostRepository {
         ));
     }
 
-    public List<Post> findByUserId(int userId){
-        String query = String.format("select * from Posts where author_id=%d", userId);
+    public List<Post> findByUserIdOrderByPostTime(int userId){
+        String query = String.format("select * from Posts where author_id=%d order by post_time desc limit 5", userId);
         List<Post> userPosts = jdbcTemplate.query(query, getRowMapper());
         return userPosts;
     }

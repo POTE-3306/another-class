@@ -15,7 +15,7 @@ public class PostService {
     }
 
     public List<Post> getByUserIdPost(int userId){
-        return postRepository.findByUserId(userId);
+        return postRepository.findByUserIdOrderByPostTime(userId);
     }
 
     public List<HashMap<Integer, ArrayList<String>>> getPostList(ArrayList<Integer> postlist) {
