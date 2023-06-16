@@ -2,6 +2,9 @@ package simple.project.courseplan;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import simple.project.course.Course;
+
+import java.util.List;
 
 @Service
 public class CoursePlanService {
@@ -15,4 +18,6 @@ public class CoursePlanService {
     public void insertCoursePlan(CoursePlan coursePlan){
         coursePlanRepository.insert(coursePlan);
     }
+
+    public List<CoursePlan> getCoursePlanList(int courseId){return coursePlanRepository.getCoursePlanList(courseId);}
 }
