@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Spectral by HTML5 UP</title>
+    <title>Another Class</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="/resources/login/assets/css/main.css" />
@@ -64,7 +64,7 @@
                 <li><a href="mailto:tpgns5888@gmail.com" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
             </ul>
             <ul class="copyright">
-                <li>&copy; Contact Us</li><li>Git Hub: <a href="https://github.com/POTE-3306/another-class">Anothor Class</a></li>
+                <li>Contact Us</li><li>Git Hub: <a href="https://github.com/POTE-3306/another-class">Anothor Class</a></li>
             </ul>
         </footer>
     </div>
