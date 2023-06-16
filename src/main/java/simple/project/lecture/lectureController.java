@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import simple.project.courseplan.CoursePlan;
 import simple.project.courseplan.CoursePlanService;
+import simple.project.post.Post;
 import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import simple.project.course.Course;
 import simple.project.course.CourseService;
@@ -28,7 +31,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("class")
+@RequestMapping("t5")
 public class lectureController {
     private final JWToken jwToken;
     private final UserService userService;
@@ -59,8 +62,11 @@ public class lectureController {
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
+            System.out.println("class id : " + classId);
             Course course = courseService.getCourseById(Integer.parseInt(classId));
             CoursePlan coursePlan = coursePlanService.getByCourseId(Integer.parseInt(classId));
+            ArrayList<Integer> postIds = postService.getPostsByAuthor(user.getId());
+            List<HashMap<Integer, ArrayList<String>>> postList = postService.getPostList(postIds);
             if (user == null) {
                 return "login/main";
             }
@@ -68,6 +74,7 @@ public class lectureController {
             model.addAttribute("course", course);
             model.addAttribute("coursePlan", coursePlan);
             model.addAttribute("classId", classId);
+            model.addAttribute("postInfoList", postList);
         } catch (Exception e){
             e.printStackTrace();
             return "login/main";

@@ -90,7 +90,7 @@ public class UserController {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
             List<Post> postList = postService.getByUserIdPost(user.getId());
-            List<Course> courseList = courseService.getByUserIdCourse(user.getId());
+            List<Course> courseList = courseService.getByUserIdCourse(user.getId(), user.isAdmin());
             if (user == null) {
                 return "login/main";
             }

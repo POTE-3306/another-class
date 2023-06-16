@@ -19,6 +19,11 @@
 <div id="page-wrapper">
 <%--    TODO: myPage 추가--%>
     <a href="/another-class/mypage">마이페이지</a>
+<%--    선생님일 경우만 강의 생성 링크 활성화--%>
+    <% if(user.isAdmin()){%>
+        <a href="/another-class/course/make-class">강의생성</a>
+    <%}%>
+
 
     <!-- Header -->
     <div id="header-wrapper">
@@ -44,6 +49,17 @@
                 <div class="col-10 col-12-medium">
                     <section>
                         <ul class="big-image-list">
+                            <% for (Course course:
+                                    courseList) { %>
+                            <li>
+                                <img src="images/pic3.jpg" alt="" class="left" />
+                                <a href=<%="t5/" + course.getId()%>> <div>
+                                    <h3><%=course.getName()%></h3>
+                                    <p><%=course.getDescription()%></p>
+                                </div> </a>
+                            </li>
+
+                            <%} %>
                             <li>
                                 <img src="images/pic3.jpg" alt="" class="left" />
                                 <a href="#"> <div>

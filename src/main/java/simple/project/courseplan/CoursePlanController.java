@@ -33,7 +33,7 @@ public class CoursePlanController {
         System.out.println("courseplan : " + title);
         coursePlanService.insertCoursePlan(coursePlan);
 
-        return "temp";
+        return "redirect:/t5";
     }
 
 }
