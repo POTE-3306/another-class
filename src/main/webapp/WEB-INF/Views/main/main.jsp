@@ -17,6 +17,8 @@
 </head>
 <body>
 <div id="page-wrapper">
+<%--    TODO: myPage 추가--%>
+    <a href=<%=String.format("/another-class/mypage",user.getId())%>>마이페이지</a>
 
     <!-- Header -->
     <div id="header-wrapper">

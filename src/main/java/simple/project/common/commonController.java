@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class commonController {
     private final JWToken jwToken;
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public commonController(JWToken jwToken, UserService userService) {
