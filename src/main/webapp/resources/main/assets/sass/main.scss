@@ -394,7 +394,8 @@
 
 	#banner {
 		position: relative;
-		width: 100%;
+		width: 50%;
+		margin: auto;
 		padding: 6em 0;
 		border-radius: 10px;
 		background-image: url(images/banner.jpg);
@@ -492,7 +493,8 @@
 		/* Banner */
 
 			#banner {
-				width: 100%;
+				width: 50%;
+				margin: auto;
 				padding: 5em 0;
 
 				h2 {

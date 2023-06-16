@@ -4,12 +4,10 @@ import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import simple.project.courseplan.CoursePlan;
 import simple.project.courseplan.CoursePlanService;
-import simple.project.post.Post;
 import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
@@ -20,18 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 import simple.project.course.Course;
 import simple.project.course.CourseService;
-import simple.project.courseplan.CoursePlan;
-import simple.project.courseplan.CoursePlanService;
 import simple.project.post.PostService;
-import simple.project.user.JWToken;
-import simple.project.user.User;
-import simple.project.user.UserService;
-
-import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
-@RequestMapping("t5")
+@RequestMapping("lecture")
 public class lectureController {
     private final JWToken jwToken;
     private final UserService userService;
@@ -57,7 +47,7 @@ public class lectureController {
     ){
         String token = (String) session.getAttribute("token");
         if (token == null) {
-            return "login/main";
+            return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
@@ -67,7 +57,7 @@ public class lectureController {
             ArrayList<Integer> postIds = postService.getPostsByAuthor(user.getId());
             List<HashMap<Integer, ArrayList<String>>> postList = postService.getPostList(postIds);
             if (user == null) {
-                return "login/main";
+                return "index";
             }
             model.addAttribute("user", user);
             model.addAttribute("course", course);
@@ -76,7 +66,7 @@ public class lectureController {
             model.addAttribute("postInfoList", postList);
         } catch (Exception e){
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
         return "class/mainClass";
     }
@@ -89,7 +79,7 @@ public class lectureController {
     ){
         String token = (String) session.getAttribute("token");
         if (token == null) {
-            return "login/main";
+            return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
@@ -97,13 +87,13 @@ public class lectureController {
 
 
             if (user == null) {
-                return "login/main";
+                return "index";
             }
             model.addAttribute("user", user);
 
         } catch (Exception e){
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
         return "redirect:class/community/notice";
     }
@@ -115,7 +105,7 @@ public class lectureController {
     ){
         String token = (String) session.getAttribute("token");
         if (token == null) {
-            return "login/main";
+            return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
@@ -123,13 +113,13 @@ public class lectureController {
 
 
             if (user == null) {
-                return "login/main";
+                return "index";
             }
             model.addAttribute("user", user);
 
         } catch (Exception e){
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
         return "class/community";
     }
@@ -141,7 +131,7 @@ public class lectureController {
     ){
         String token = (String) session.getAttribute("token");
         if (token == null) {
-            return "login/main";
+            return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
@@ -149,13 +139,13 @@ public class lectureController {
 
 
             if (user == null) {
-                return "login/main";
+                return "index";
             }
             model.addAttribute("user", user);
 
         } catch (Exception e){
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
         return "class/community";
     }

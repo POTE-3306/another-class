@@ -31,7 +31,7 @@ public class CoursePlanController {
         coursePlan.setDescription(content);
         coursePlanService.insertCoursePlan(coursePlan);
 
-        return "redirect:/t5";
+        return "redirect:/lecture/" + courseId;
     }
 
 }

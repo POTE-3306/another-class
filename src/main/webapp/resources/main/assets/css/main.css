@@ -1599,7 +1599,8 @@ input, select, textarea {
 
 	#banner {
 		position: relative;
-		width: 100%;
+		width: 50%;
+		margin: auto;
 		padding: 6em 0;
 		border-radius: 10px;
 		background-image: url(images/banner.jpg);
@@ -1625,6 +1626,18 @@ input, select, textarea {
 			letter-spacing: -1px;
 			text-transform: lowercase;
 			opacity: 0.8;
+		}
+
+		#banner input {
+			border-radius: 5px;
+			border: 1px solid #ddd;
+		}
+
+		#banner button {
+			border-radius: 5px;
+			border: none;
+			color: #fff;
+			background-color: #007b9d;
 		}
 
 /* Main */
@@ -1691,7 +1704,8 @@ input, select, textarea {
 		/* Banner */
 
 			#banner {
-				width: 100%;
+				width: 50%;
+				margin: auto;
 				padding: 5em 0;
 			}
 

@@ -12,11 +12,11 @@ import simple.project.course.CourseService;
 import simple.project.post.Post;
 import simple.project.post.PostService;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequestMapping("user")
 public class UserController {
     private final UserService userService;
     private final NaverAPI naverAPI;
@@ -33,24 +33,18 @@ public class UserController {
         this.courseService = courseService;
     }
 
-    @RequestMapping("t1")
-    public String someMethod() {
-        userService.someMethod();
-        return "login/main";
-    }
-
-    @RequestMapping("t3")
-    public String someMethod2(@RequestParam("code") String code,
+    @RequestMapping("callback")
+    public String callback(@RequestParam("code") String code,
                               @RequestParam("state") String state,
                               Model model, HttpSession session) {
         String access_token = userService.getAccessToken(code, state);
         if (access_token.equals("")) {
-            return "login/main";
+            return "index";
         }
         try {
             APIUserDTO apiUser = naverAPI.getProfile(access_token);
             if (apiUser == null) {
-                return "login/main";
+                return "index";
             }
             User user = userService.userSelectByEmailAndNaverId(apiUser);
             if (user == null) {
@@ -61,13 +55,13 @@ public class UserController {
             session.setAttribute("token", token);
         } catch (Exception e) {
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
-        return "redirect:/t5";
+        return "redirect:/user/main";
     }
 
-    @RequestMapping("t4")
-    public String someMethod3(HttpSession session,
+    @RequestMapping("signup")
+    public String signup(HttpSession session,
                               @ModelAttribute User user) {
         user = userService.insertUser(user);
         try {
@@ -75,32 +69,32 @@ public class UserController {
             session.setAttribute("token", token);
         } catch (Exception e) {
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
-        return "redirect:/t5";
+        return "redirect:/user/main";
     }
 
-    @RequestMapping("t5")
-    public String someMethod4(HttpSession session, Model model) {
+    @RequestMapping("main")
+    public String main(HttpSession session, Model model) {
         String token = (String) session.getAttribute("token");
         if (token == null) {
-            return "login/main";
+            return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
-            List<Post> postList = postService.getByUserIdPost(user.getId());
-            List<Course> courseList = courseService.getByUserIdCourse(user.getId(), user.isAdmin());
             if (user == null) {
-                return "login/main";
+                return "index";
             }
+            List<Post> postList = postService.getByUserIdPost(user.getId());
+            List<Course> courseList = courseService.getByUserIdCourse(user.getId());
             model.addAttribute("postList", postList);
             model.addAttribute("user", user);
             model.addAttribute("courseList", courseList);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
         return "main/main";
     }

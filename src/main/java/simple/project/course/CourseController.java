@@ -5,22 +5,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import simple.project.courseplan.CoursePlan;
-import simple.project.courseplan.CoursePlanService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -53,18 +46,18 @@ public class CourseController {
     public String makeClassPage(Model model,HttpSession session) {
         String token = (String) session.getAttribute("token");
         if (token == null) {
-            return "login/main";
+            return "index";
         }
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
             if (user == null) {
-                return "login/main";
+                return "index";
             }
             model.addAttribute("user", user);
         } catch (Exception e){
             e.printStackTrace();
-            return "login/main";
+            return "index";
         }
         return "/makeClass";
     }

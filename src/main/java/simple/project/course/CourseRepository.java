@@ -48,8 +48,8 @@ public class CourseRepository {
         List<Course> courseList = jdbcTemplate.query(query, getRowMapper());
         return courseList;
     }
-    public List<Course> findByUserId(int userId, boolean isAdmin) {
-        String query = String.format(isAdmin ?"select * from Courses where admin_id=%d" : "select * from Registrations A join Courses B on A.course_id=B.id where A.user_id=%d;", userId);
+    public List<Course> findByUserId(int userId) {
+        String query = String.format("select * from Registrations A join Courses B on A.course_id=B.id where A.user_id=%d;", userId);
         List<Course> userCourse = jdbcTemplate.query(query, getRowMapper());
         return userCourse;
     }
