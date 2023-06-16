@@ -26,4 +26,7 @@ public class PostService {
     }
 //    public List<Post> getBy
 
+    public List<Post> getByClassIdAndBoardType(int classId, int boardType){
+        return postRepository.findByClassIdAndBoardType(classId, boardType);
+    }
 }
