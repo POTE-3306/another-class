@@ -26,6 +26,12 @@ public class RegistrationRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    public boolean findRegistration(int userId, int courseId) {
+        String query = String.format("SELECT * FROM Registrations where user_id=%d and course_id=%d", userId, courseId);
+        List<Registration> registrationList = jdbcTemplate.query(query, getRowMapper());
+        return registrationList.isEmpty();
+    }
+
     public void register(int userId, int courseId) {
         jdbcTemplate.update("INSERT INTO Registrations (user_id, course_id) VALUES (?, ?)", userId, courseId);
     }
