@@ -22,7 +22,7 @@
 <body>
 <div class="container">
     <h1>강의 운영 계획 작성</h1>
-    <form action="/course/insert-plan" method="post">
+    <form action="/another-class/course/insert-plan" method="post">
         <div class="form-group">
             <label for="courseId"></label>
             <input type="hidden" id="courseId" name="courseId" value="<%= courseId %>">

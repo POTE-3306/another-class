@@ -2,6 +2,9 @@ package simple.project.courseplan;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import simple.project.course.Course;
+
+import java.util.List;
 
 import java.util.List;
 
@@ -19,4 +22,6 @@ public class CoursePlanService {
     }
 
     public CoursePlan getByCourseId(int courseId){ return coursePlanRepository.findByCourseId(courseId);}
+
+    public List<CoursePlan> getCoursePlanList(int courseId){return coursePlanRepository.getCoursePlanList(courseId);}
 }
