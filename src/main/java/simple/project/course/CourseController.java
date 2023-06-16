@@ -45,8 +45,8 @@ public class CourseController {
 //        }
         int userId = 2;
 //        model.addAttribute("userId", userId);
-        List<Course> courseList = courseService.getByUserIdCourse(userId);
-        model.addAttribute("courseList", courseList);
+//        List<Course> courseList = courseService.getByUserIdCourse(userId, user.isAdmin);
+//        model.addAttribute("courseList", courseList);
         return "classList";
     }
     @GetMapping("/course/make-class")

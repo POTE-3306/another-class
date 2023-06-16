@@ -38,10 +38,10 @@ public class PostRepository {
     }
 
     public ArrayList<Integer> findPostsByAuthor(int authorId) {
-        String sql = "SELECT posts.id " +
-                "FROM posts " +
-                "JOIN users u ON u.id = posts.author_id " +
-                "WHERE posts.author_id = ? " +
+        String sql = "SELECT Posts.id " +
+                "FROM Posts " +
+                "JOIN Users u ON u.id = Posts.author_id " +
+                "WHERE Posts.author_id = ? " +
                 "LIMIT 5";
 
         ArrayList<Integer> postList = new ArrayList<>();

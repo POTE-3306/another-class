@@ -48,14 +48,14 @@ public class CourseRepository {
         List<Course> courseList = jdbcTemplate.query(query, getRowMapper());
         return courseList;
     }
-    public List<Course> findByUserId(int userId) {
-        String query = String.format("select * from Registrations A join Courses B on A.course_id=B.id where A.user_id=%d;", userId);
+    public List<Course> findByUserId(int userId, boolean isAdmin) {
+        String query = String.format(isAdmin ?"select * from Courses where admin_id=%d" : "select * from Registrations A join Courses B on A.course_id=B.id where A.user_id=%d;", userId);
         List<Course> userCourse = jdbcTemplate.query(query, getRowMapper());
         return userCourse;
     }
 
     public void insert(Course course) {
-        String sql = "INSERT INTO COURSES (uuid, logo_url, name, description,admin_id) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO Courses (uuid, logo_url, name, description,admin_id) VALUES (?,?,?,?,?)";
         jdbcTemplate.update(sql, course.getUuid(), course.getLogo_url(), course.getName(), course.getDescription(), course.getAdmin_id());
     }
 
@@ -66,20 +66,12 @@ public class CourseRepository {
     }
 
     public Course getCourseById(int courseId) {
-        String sql = "SELECT * FROM Courses WHERE id = ?";
-        return jdbcTemplate.queryForObject(sql, new Object[]{courseId}, (rs, rowNum) -> {
-            Course course = new Course();
-            course.setId(rs.getInt("id"));
-            course.setUuid(rs.getString("uuid"));
-            course.setName(rs.getString("name"));
-            course.setLogo_url(rs.getString("logo_url"));
-            course.setDescription(rs.getString("description"));
-            course.setAdmin_id(rs.getInt("admin_id"));
-            course.setCode(rs.getInt("code"));
-            course.setLimit_time(rs.getTimestamp("limit_time").toLocalDateTime());
-            course.setLecture_days(rs.getInt("lecture_days"));
-            course.setIn_activate(rs.getBoolean("is_active"));
-            return course;
-        });
+        String sql = String.format("SELECT * FROM Courses WHERE id = %d", courseId);
+        List<Course> courses = jdbcTemplate.query(sql, getRowMapper());
+        if (courses.isEmpty()) {
+            return null; // 결과가 없을 경우 null을 반환하거나 적절한 처리를 수행하세요.
+        } else {
+            return courses.get(0); // 결과가 있다면 첫 번째 레코드를 반환하도록 처리하세요.
+        }
     }
 }

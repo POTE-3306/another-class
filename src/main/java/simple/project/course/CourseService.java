@@ -1,6 +1,8 @@
 package simple.project.course;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,6 +15,7 @@ import java.util.List;
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
+    private ResourceLoader resourceLoader;
 
     @Autowired
     public CourseService(CourseRepository courseRepository) {
@@ -25,7 +28,7 @@ public class CourseService {
     }
 
     public String saveImage(MultipartFile image) {
-        final String MY_PROJECT_PATH = "C:/Users/djfwk/source/repos/another-class";
+        final String MY_PROJECT_PATH = "./";
         String imagePath = null;
         try {
             // Generate a unique file name or use the original file name as needed
@@ -66,7 +69,7 @@ public class CourseService {
         return courseRepository.findByAdminId(adminId);
     }
 
-    public List<Course> getByUserIdCourse(int userId) {
-        return courseRepository.findByUserId(userId);
+    public List<Course> getByUserIdCourse(int userId, boolean isAdmin) {
+        return courseRepository.findByUserId(userId, isAdmin);
     }
 }
