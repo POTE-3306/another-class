@@ -11,6 +11,9 @@ public class Comment {
     LocalDateTime postTime;
     String boardType;
 
+    public Comment() {
+    }
+
     public Comment(int id, int courseId, int authorId, String title, String content, LocalDateTime postTime, String boardType) {
         this.id = id;
         this.courseId = courseId;
@@ -75,5 +78,18 @@ public class Comment {
 
     public void setBoardType(String boardType) {
         this.boardType = boardType;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", courseId=" + courseId +
+                ", authorId=" + authorId +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", postTime=" + postTime +
+                ", boardType='" + boardType + '\'' +
+                '}';
     }
 }

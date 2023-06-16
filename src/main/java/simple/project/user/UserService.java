@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -71,5 +72,9 @@ public class UserService {
         int id = Integer.parseInt(claims.getSubject());
         String email = claims.get("email", String.class);
         return userRepository.selectUserByIdAndEmail(id, email);
+    }
+
+    public List<User> findUserById(int id){
+        return userRepository.findById(id);
     }
 }

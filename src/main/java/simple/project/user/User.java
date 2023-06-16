@@ -64,4 +64,17 @@ public class User {
     public void setNaverId(String naverId) {
         this.naverId = naverId;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", age=" + age +
+                ", gender=" + gender +
+                ", isAdmin=" + isAdmin +
+                ", naverId='" + naverId + '\'' +
+                '}';
+    }
 }

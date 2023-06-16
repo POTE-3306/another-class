@@ -35,5 +35,6 @@ public class PostController {
 
         return "class/mainClass";
     }
+
 }
 
