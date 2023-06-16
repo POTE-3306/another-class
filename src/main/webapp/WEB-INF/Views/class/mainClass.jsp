@@ -32,7 +32,7 @@
 <%}%>
 
 <a href=<%=String.format("%d/community", course.getId())%>>커뮤니티</a>
-<a href="/another-class/user/main">강의 목록 가기</a>
+<a href="/another-class/post/main">강의 목록 가기</a>
 
 <!-- Display post information -->
 <h2>Post List:</h2>
