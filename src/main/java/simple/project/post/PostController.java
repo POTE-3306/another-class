@@ -8,9 +8,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import simple.project.comment.CommentService;
 import simple.project.course.Course;
+import simple.project.course.CourseController;
 import simple.project.course.CourseService;
 import simple.project.user.User;
+import simple.project.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -23,11 +26,16 @@ public class PostController {
     private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
     private final PostService postService;
     private final CourseService courseService;
+    private final CommentService commentService;
+    private final UserService userService;
+
 
     @Autowired
-    public PostController(PostService postService, CourseService courseService) {
+    public PostController(PostService postService, CourseService courseService, CommentService commentService, UserService userService) {
         this.postService = postService;
         this.courseService = courseService;
+        this.commentService = commentService;
+        this.userService = userService;
     }
 
     @RequestMapping("/classMain")
@@ -58,12 +66,10 @@ public class PostController {
         return "main/main";
     }
 
-    @GetMapping("/class/Notice")
-    public String noticePage(){
-        int boardType = 1;
+    @RequestMapping("{postId}")
+    public String noticePage(@PathVariable("postId") int postId){
 
         return "subCommunity";
     }
-
 }
 
