@@ -13,4 +13,8 @@ public class RegistrationService {
     public void register(int userId, int courseId) {
         registrationRepository.register(userId, courseId);
     }
+
+    public void adminRegister(int userId, int courseId) {
+        registrationRepository.adminRegister(userId, courseId);
+    }
 }

@@ -31,9 +31,13 @@ public class CoursePlanRepository {
     }
 
     public CoursePlan findByCourseId(int courseId){
+        System.out.println(courseId);
         String query = String.format("select * from CoursePlans where course_id=%d", courseId);
-        CoursePlan coursePlan = jdbcTemplate.queryForObject(query, getRowMapper());
-        return coursePlan;
+        List<CoursePlan> coursePlanList = jdbcTemplate.query(query, getRowMapper());
+        if (coursePlanList.isEmpty()){
+            return null;
+        }
+        else return coursePlanList.get(0);
 
     }
     public List<CoursePlan> getCoursePlanList(int courseId) {
