@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestMapping;
+import simple.project.registration.RegistrationService;
 import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
@@ -22,12 +23,14 @@ public class CourseController {
     private final CourseService courseService;
     private final UserService userService;
     private final JWToken jwToken;
+    private final RegistrationService registrationService;
 
     @Autowired
-    public CourseController(CourseService courseService, UserService userService, JWToken jwToken) {
+    public CourseController(CourseService courseService, UserService userService, JWToken jwToken, RegistrationService registrationService) {
         this.courseService = courseService;
         this.jwToken= jwToken;
         this.userService =userService;
+        this.registrationService = registrationService;
     }
 
     @RequestMapping("class")
@@ -64,12 +67,28 @@ public class CourseController {
 
     @PostMapping("/course/insert-class")
     public String makeClass(
+            HttpSession session,
             @RequestParam("image") MultipartFile image,
             @RequestParam("title") String title,
             @RequestParam("content") String content,
             @RequestParam("userId") int adminId,
             Model model
     ) {
+        User user = new User();
+        String token = (String) session.getAttribute("token");
+        if (token == null) {
+            return "index";
+        }
+        try{
+            Claims claims = jwToken.getClaims(token);
+            user = userService.getUserByToken(claims);
+            if (user == null || !user.isAdmin()) {
+                return "index";
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+            return "index";
+        }
         Course course = new Course();
         String filePath = courseService.saveImage(image);
         String uuid = UUID.randomUUID().toString();
@@ -81,8 +100,9 @@ public class CourseController {
 
         // Call the service method passing the Course instance
         courseService.makeClass(course);
-
         int courseId = courseService.findId(uuid);
+        registrationService.adminRegister(user.getId(), courseId);
+
         model.addAttribute("courseId", courseId);
         return "/makeCoursePlan";
     }

@@ -39,7 +39,7 @@
         <div class="container">
             <div class="row main-row" >
                 <div class="col-10 col-12-medium" style="text-align: right;">
-                    <button onclick="window.location.href='/course/make-class'" style="
+                    <button onclick="window.location.href='/another-class/course/make-class'" style="
                                                          border-radius: 5px;
                                                          border: none;
                                                          color: #fff;
@@ -67,6 +67,7 @@
                                 ">
                                 <img src="/another-class/main/assets/image/<%=course.getLogo_url()%>.png" alt="" class="left" />
                                 <a href="#"> <div>
+                                    <a href=<%=String.format("/another-class/lecture/%d", course.getId())%>>
                                     <h3><%=course.getName()%></h3>
                                     <p><%=course.getDescription()%></p>
                                 </div> </a>
