@@ -36,5 +36,12 @@ public class PostController {
         return "class/mainClass";
     }
 
+    @GetMapping("/class/Notice")
+    public String noticePage(){
+        int boardType = 1;
+
+        return "subCommunity";
+    }
+
 }
 
