@@ -1,7 +1,12 @@
 <%@ page import="simple.project.user.User" %>
+<%@ page import="java.util.List" %>
+<%@ page import="simple.project.post.Post" %>
+<%@ page import="simple.project.course.Course" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     User user = (User) request.getAttribute("user");
+    List<Post> postList = (List<Post>) request.getAttribute("postList");
+    List<Course> courseList = (List<Course>) request.getAttribute("courseList");
 %>
 <html>
 <head>

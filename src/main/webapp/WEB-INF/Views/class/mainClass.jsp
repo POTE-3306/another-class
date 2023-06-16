@@ -2,6 +2,9 @@
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="simple.project.user.User" %>
+<%@ page import="simple.project.courseplan.CoursePlan" %>
+<%@ page import="simple.project.course.Course" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -11,6 +14,11 @@
 <%
     String url = request.getRequestURI();
     String path = request.getContextPath();
+//    유저, 수업아이디, 수업, 수업 계획
+    String classId = (String) request.getAttribute("classId");
+    User user = (User) request.getAttribute("user");
+    Course course = (Course) request.getAttribute("course");
+    CoursePlan coursePlan = (CoursePlan) request.getAttribute("coursePlan");
 
     List<HashMap<Integer, ArrayList<String>>> postInfoList = (List<HashMap<Integer, ArrayList<String>>>) request.getAttribute("postInfoList");
 %>

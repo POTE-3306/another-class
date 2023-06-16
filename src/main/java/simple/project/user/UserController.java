@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import simple.project.course.Course;
+import simple.project.course.CourseService;
 import simple.project.post.Post;
 import simple.project.post.PostService;
 
@@ -20,13 +22,15 @@ public class UserController {
     private final NaverAPI naverAPI;
     private final JWToken jwToken;
     private final PostService postService;
+    private final CourseService courseService;
 
     @Autowired
-    public UserController(UserService userService, PostService postService, NaverAPI naverAPI, JWToken jwToken) {
+    public UserController(UserService userService, CourseService courseService, PostService postService, NaverAPI naverAPI, JWToken jwToken) {
         this.postService = postService;
         this.userService = userService;
         this.naverAPI = naverAPI;
         this.jwToken = jwToken;
+        this.courseService = courseService;
     }
 
     @RequestMapping("t1")
@@ -86,11 +90,13 @@ public class UserController {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
             List<Post> postList = postService.getByUserIdPost(user.getId());
+            List<Course> courseList = courseService.getByUserIdCourse(user.getId());
             if (user == null) {
                 return "login/main";
             }
             model.addAttribute("postList", postList);
             model.addAttribute("user", user);
+            model.addAttribute("courseList", courseList);
 
         } catch (Exception e) {
             e.printStackTrace();
