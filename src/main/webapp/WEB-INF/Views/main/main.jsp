@@ -134,18 +134,28 @@
     document.getElementById('myForm').addEventListener('submit', function(e) {
         e.preventDefault();
         let url = document.getElementById('uuidInput').value;
-        fetch('register/' + url, {
-            method: 'GET', // or 'POST'
+        fetch('/another-class/register/' + url, {
+            method: 'GET',
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
             },
         })
             .then(response => {
-                if (!response.ok) {
-                    alert("존재하지 않는 UUID 입니다. 다시 시도해주세요.");
-                } else {
-                    alert("등록되었습니다.");
-                    window.location.reload();
+                switch (response.status) {
+                    case 200:
+                        alert("등록 성공!");
+                        window.location.reload();
+                        break;
+                    case 400:
+                        alert("CLASS ID가 존재하지 않습니다.");
+                        break;
+                    case 422:
+                        alert("이미 등록하셨습니다.");
+                        break;
+                    default:
+                        alert("에러발생. 다시 시도해주세요.");
+                        break;
                 }
             })
             .catch(() => {

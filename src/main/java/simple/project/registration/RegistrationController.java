@@ -10,43 +10,34 @@ import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequestMapping("/register")
 public class RegistrationController {
     private final RegistrationService registrationService;
     private final CourseService courseService;
-    private final UserService userService;
-    private final JWToken jwToken;
 
 
-    public RegistrationController(RegistrationService registrationService, CourseService courseService, UserService userService, JWToken jwToken) {
+    public RegistrationController(RegistrationService registrationService, CourseService courseService) {
         this.registrationService = registrationService;
         this.courseService = courseService;
-        this.userService = userService;
-        this.jwToken = jwToken;
     }
 
-    @RequestMapping("register/{uuid}")
+    @RequestMapping("{uuid}")
     public ResponseEntity<?> someMethod5(@PathVariable String uuid,
-                                         HttpServletResponse response,
-                                         HttpSession session) {
-        String token = (String) session.getAttribute("token");
-        if (token == null) {
-            return ResponseEntity.badRequest().build();
-        }
+                                         HttpServletRequest request) {
+        User user = (User) request.getAttribute("user");
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
-            if (user == null) {
-                return ResponseEntity.badRequest().build();
-            }
             int courseId = courseService.findId(uuid);
             if (courseId == 0) {
                 return ResponseEntity.badRequest().build();
             }
-            registrationService.register(user.getId(), courseId);
+            if (!registrationService.register(user.getId(), courseId)) {
+                return ResponseEntity.unprocessableEntity().build();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
