@@ -6,6 +6,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -16,10 +17,12 @@ import java.util.List;
 public class CourseService {
     private final CourseRepository courseRepository;
     private ResourceLoader resourceLoader;
+    private final ServletContext servletContext;
 
     @Autowired
-    public CourseService(CourseRepository courseRepository) {
+    public CourseService(CourseRepository courseRepository, ServletContext servletContext) {
         this.courseRepository = courseRepository;
+        this.servletContext = servletContext;
     }
 
     public void makeClass(Course course) {
@@ -28,12 +31,12 @@ public class CourseService {
     }
 
     public String saveImage(MultipartFile image) {
-        final String MY_PROJECT_PATH = "./";
-        String imagePath = null;
+        final String MY_PROJECT_PATH = servletContext.getRealPath("/");
+        String fileName = null;
         try {
             // Generate a unique file name or use the original file name as needed
-            String fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
-            String uploadDir = MY_PROJECT_PATH + "/filestream/class"; // Set the appropriate directory path
+            fileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+            String uploadDir = MY_PROJECT_PATH + "resources/main/assets/image"; // Set the appropriate directory path
 
             // Create the directory if it doesn't exist
             File directory = new File(uploadDir);
@@ -45,12 +48,12 @@ public class CourseService {
             String filePath = uploadDir + "/" + fileName;
             image.transferTo(new File(filePath));
             // Set the file path to be stored in the database
-            imagePath = filePath;
+            String imagePath = filePath;
         } catch (IOException e) {
             e.printStackTrace();
             // Handle the error appropriately
         }
-        return imagePath;
+        return fileName;
     }
 
     public int findId(String uuid){
