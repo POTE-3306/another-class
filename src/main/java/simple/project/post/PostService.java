@@ -24,5 +24,6 @@ public class PostService {
     public ArrayList<Integer> getPostsByAuthor(int authorId){
         return postRepository.findPostsByAuthor(authorId);
     }
+//    public List<Post> getBy
 
 }

@@ -24,9 +24,10 @@
 %>
 <h1>ClassPage</h1>
 <h4><%=(String) request.getAttribute("classId")%></h4>
-<a href="#">mypage</a>
-<a href="#">게시글리스트</a>
-<a href="#">강의페이지</a>
+<%--    TODO: myPage 추가--%>
+<a href="/another-class/mypage">마이페이지</a>
+<a href="manage">관리</a>
+<a href="community">커뮤니티</a>
 <a href="#"></a>
 
 <!-- Display post information -->
