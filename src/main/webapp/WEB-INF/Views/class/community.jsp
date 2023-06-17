@@ -72,26 +72,32 @@
 <div>
     <ul>
         <% for (Post post : postList) { %>
-        <li style="border: 2px solid rgba(61,49,49,0.95);
-                border-radius: 10px;
-                padding: 15px;
-                box-shadow: 0px 0px 10px #999;
-                background-color: rgba(255,255,255,0.83);">
+        <li style=" border: 2px solid rgba(61,49,49,0.95);
+                                        border-radius: 10px;
+                                        padding: 15px;
+                                        box-shadow: 0px 0px 10px #999;
+                                        background-color: rgba(255,255,255,0.83);
+            ">
             <a href="#">
                 <div>
-                    <a href="<%= String.format("/another-class/post/%d?boardType=%d", post.getId(), post.getBoardType()) %>">
-                        <h3><%= post.getTitle() %></h3>
-                        <% String content = post.getContent();
-                            String mainContent = content.length() > 50 ? content.substring(0, 50) + "..." : content;
-                        %>
-                        <p><%= mainContent %></p>
-                    </a>
+                    <a href=<%=String.format("/another-class/post/%d?boardType=%s", post.getId(),post.getBoardType())%>>
+                        <h3><%=post.getTitle()%>
+                        </h3>
+                            <%
+                    String content = post.getContent();
+                    String mainContent = new String();
+                    if (content.length()>50){
+                        mainContent = content.substring(0,50) + "...";
+                    }else mainContent=content;
+                    %>
+                        <p><%=mainContent%>
+                        </p>
                 </div>
             </a>
         </li>
         <% } %>
-    </ul>
 
+    </ul>
 </div>
 </body>
 </html>
