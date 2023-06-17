@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,12 +36,12 @@ public class UserRepository {
     }
 
 
-    public void someMethod() {
+    public List<User> getUserList() {
+        List<User> userList = new ArrayList<>();
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(UserQuery.SELECT_ALL);
 
-        rows.forEach(row -> {
-            System.out.println(row);
-        });
+        rows.forEach(row -> userList.add(getUser(row)));
+        return userList;
     }
 
     public User insertUser(User user) {
@@ -66,6 +67,24 @@ public class UserRepository {
             user = getUser(row);
         }
         return user;
+    }
+
+    public User selectUserById(int id) {
+        User user = null;
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(UserQuery.SELECT_BY_ID, id);
+        for (Map<String, Object> row : rows) {
+            user = getUser(row);
+        }
+        return user;
+    }
+
+    public int getLastId() {
+        int id = 0;
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(UserQuery.SELECT_Last_ID);
+        for (Map<String, Object> row : rows) {
+            id = (int) row.get("id");
+        }
+        return id;
     }
 
     public User userSelectByEmailAndNaverId(APIUserDTO apiUser) {

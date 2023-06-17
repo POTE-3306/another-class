@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -20,8 +21,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void someMethod() {
-        userRepository.someMethod();
+    public List<User> getUserList() {
+        return userRepository.getUserList();
     }
 
     public User insertUser(User user) {
@@ -62,6 +63,15 @@ public class UserService {
         }
         return access_token;
     }
+
+    public User userSelectById(int id) {
+        return userRepository.selectUserById(id);
+    }
+
+    public int getLastId() {
+        return userRepository.getLastId();
+    }
+
 
     public User userSelectByEmailAndNaverId(APIUserDTO apiUser) {
         return userRepository.userSelectByEmailAndNaverId(apiUser);
