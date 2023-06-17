@@ -8,6 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <script>
+        function goBack() {
+            window.history.back(); // 뒤로가기 기능 실행
+        }
+    </script>
     <title>Title</title>
 </head>
 <%
@@ -18,5 +23,6 @@
     <h1><%=user.getName()%></h1>
     <h1><%=user.getAge()%></h1>
     <h1><%=user.getGender()%></h1>
+    <button onclick="goBack()">뒤로가기</button>
 </body>
 </html>
