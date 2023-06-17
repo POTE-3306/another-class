@@ -2,6 +2,8 @@ package simple.project.registration;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RegistrationService {
     private final RegistrationRepository registrationRepository;
@@ -21,4 +23,11 @@ public class RegistrationService {
     public void adminRegister(int userId, int courseId) {
         registrationRepository.adminRegister(userId, courseId);
     }
+
+    public List<Registration> findByCourseId(int course_id){
+        return registrationRepository.findRegByCourseId(course_id);
+    }
+    public void updateReg(int regId){registrationRepository.updateReg(regId);}
+    public void deleteReg(int regId){registrationRepository.deleteReg(regId);}
+
 }

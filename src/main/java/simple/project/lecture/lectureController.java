@@ -5,10 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import simple.project.config.SessionInterceptor;
 import simple.project.courseplan.CoursePlan;
 import simple.project.courseplan.CoursePlanService;
 import simple.project.post.Post;
+import simple.project.registration.Registration;
+import simple.project.registration.RegistrationService;
 import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
@@ -29,16 +34,21 @@ public class lectureController {
     private final CoursePlanService coursePlanService;
     private final CourseService courseService;
     private final PostService postService;
+    private final RegistrationService registrationService;
 
     @Autowired
-    public lectureController(JWToken jwToken, UserService userService, CoursePlanService coursePlanService, CourseService courseService, PostService postService) {
+    public lectureController(JWToken jwToken, UserService userService, CoursePlanService coursePlanService, CourseService courseService, PostService postService, RegistrationService registrationService) {
         this.jwToken = jwToken;
         this.userService = userService;
         this.coursePlanService = coursePlanService;
         this.courseService = courseService;
         this.postService = postService;
+        this.registrationService = registrationService;
     }
 
+    private User getUserById(List<User> users, int userId) {
+        return users.stream().filter(user -> user.getId() == userId).findFirst().orElse(null);
+    }
 
     @RequestMapping("{class_id}")
     public String mainClass(
@@ -230,12 +240,29 @@ public class lectureController {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
             Course course = courseService.getCourseById(Integer.parseInt(classId));
+            List<User> users = userService.findAllUser();
 
             if (user == null) {
                 return "index";
             }
             model.addAttribute("user", user);
             model.addAttribute("course", course);
+            List<Registration> reglist = registrationService.findByCourseId(course.getId());
+            List<RegisterWaiting> waitingList = new ArrayList<>();
+            for (Registration registration : reglist) {
+                User student = getUserById(users, registration.getUserId());
+                RegisterWaiting rw = new RegisterWaiting();
+                if (student != null) {
+                    rw.setUserName(student.getName());
+                    rw.setUserId(student.getId());
+                }
+                rw.setRegId(registration.getId());
+
+                System.out.println(rw);
+                waitingList.add(rw);
+            }
+            System.out.println(waitingList);
+            model.addAttribute("waitingList", waitingList);
 
         } catch (Exception e){
             e.printStackTrace();
@@ -243,6 +270,46 @@ public class lectureController {
         }
         return "class/manage";
     }
+    @RequestMapping("{class_id}/accept")
+    public String acceptReg(
+            @RequestParam("regId") int regId,
+            @PathVariable("class_id") String classId,
+            Model model,
+            HttpSession session
+    ) {
+        String token = (String) session.getAttribute("token");
+        if (token == null) {
+            return "index";
+        }
+        try {
+            Claims claims = jwToken.getClaims(token);
+            User user = userService.getUserByToken(claims);
+            Course course = courseService.getCourseById(Integer.parseInt(classId));
+            System.out.println("accept hi : " + regId);
+            registrationService.updateReg(regId);
+            if (user == null) {
+                return "index";
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("course", course);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "index";
+        }
+
+        return String.format("redirect:/lecture/%s/manage", classId);
+    }
+
+    @RequestMapping("{class_id}/reject")
+    public String rejcetReg(
+            @RequestParam("regId") int regId,
+            @PathVariable("class_id") String classId
+    ){
+        registrationService.deleteReg(regId);
+        return String.format("redirect:/lecture/%s/manage", classId);
+    }
+
     @RequestMapping("{class_id}/attend")
     public String managePage(
             HttpSession session,
