@@ -216,4 +216,58 @@ public class lectureController {
         }
         return "class/community";
     }
+    @RequestMapping("{class_id}/manage")
+    public String attendPage(
+            HttpSession session,
+            Model model,
+            @PathVariable("class_id") String classId
+    ){
+        String token = (String) session.getAttribute("token");
+        if (token == null) {
+            return "index";
+        }
+        try {
+            Claims claims = jwToken.getClaims(token);
+            User user = userService.getUserByToken(claims);
+            Course course = courseService.getCourseById(Integer.parseInt(classId));
+
+            if (user == null) {
+                return "index";
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("course", course);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return "index";
+        }
+        return "class/manage";
+    }
+    @RequestMapping("{class_id}/attend")
+    public String managePage(
+            HttpSession session,
+            Model model,
+            @PathVariable("class_id") String classId
+    ){
+        String token = (String) session.getAttribute("token");
+        if (token == null) {
+            return "index";
+        }
+        try {
+            Claims claims = jwToken.getClaims(token);
+            User user = userService.getUserByToken(claims);
+            Course course = courseService.getCourseById(Integer.parseInt(classId));
+
+            if (user == null) {
+                return "index";
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("course", course);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return "index";
+        }
+        return "class/manage";
+    }
 }
