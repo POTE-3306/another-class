@@ -35,6 +35,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <mvc:resources mapping="/login/assets/**" location="/resources/login/assets/" />
     <mvc:resources mapping="/main/assets/**" location="/resources/main/assets/" />
+    <mvc:resources mapping="/class/assets/**" location="/resources/class/assets/" />
 
     <mvc:interceptors>
         <mvc:interceptor>

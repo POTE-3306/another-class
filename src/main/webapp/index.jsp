@@ -32,6 +32,7 @@
                 <ul class="actions special">
                     <li><a href="<%=apiURL%>" class="button primary" id="signUp">Naver Login</a></li>
                     <li><a href="user/test" class="button primary" id="test">Test Login</a></li>
+                    <li><a href="user/template" class="button primary" id="class">class page</a></li>
                 </ul>
             </div>
             <a href="#one" class="more scrolly">Learn More</a>
