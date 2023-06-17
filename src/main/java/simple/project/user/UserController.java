@@ -34,6 +34,11 @@ public class UserController {
         return "login/test";
     }
 
+    @RequestMapping("template")
+    public String template() {
+        return "template/mainClass";
+    }
+
     @RequestMapping("test/teacher")
     public ResponseEntity<?> createTeacher() {
         int id = userService.getLastId() + 1;
