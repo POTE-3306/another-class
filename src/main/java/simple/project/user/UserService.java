@@ -21,8 +21,8 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void someMethod() {
-        userRepository.someMethod();
+    public List<User> getUserList() {
+        return userRepository.getUserList();
     }
 
     public User insertUser(User user) {
@@ -63,6 +63,15 @@ public class UserService {
         }
         return access_token;
     }
+
+    public User userSelectById(int id) {
+        return userRepository.selectUserById(id);
+    }
+
+    public int getLastId() {
+        return userRepository.getLastId();
+    }
+
 
     public User userSelectByEmailAndNaverId(APIUserDTO apiUser) {
         return userRepository.userSelectByEmailAndNaverId(apiUser);

@@ -31,6 +31,7 @@
                     네이버 계정으로 로그인하여 Another Class의 세계를 탐험해 보세요.<br /></p>
                 <ul class="actions special">
                     <li><a href="<%=apiURL%>" class="button primary" id="signUp">Naver Login</a></li>
+                    <li><a href="user/test" class="button primary" id="test">Test Login</a></li>
                 </ul>
             </div>
             <a href="#one" class="more scrolly">Learn More</a>
