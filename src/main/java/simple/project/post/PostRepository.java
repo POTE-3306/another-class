@@ -92,9 +92,9 @@ public class PostRepository {
         return classPostList;
     }
 
-    public List<Post> getPosts(int courseId, int boardType) {
-        String sql = "SELECT * FROM Posts WHERE course_id = ? AND board_type = ?";
-        List<Post> postList = jdbcTemplate.query(sql, getRowMapper(), courseId, boardType);
+    public List<Post> getPosts(int boardType) {
+        String sql = "SELECT * FROM Posts WHERE board_type = ?";
+        List<Post> postList = jdbcTemplate.query(sql, getRowMapper(), boardType);
         return postList;
     }
 }

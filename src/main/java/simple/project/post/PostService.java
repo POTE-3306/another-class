@@ -25,8 +25,8 @@ public class PostService {
         return postRepository.findPostsByAuthor(authorId);
     }
 
-    public List<Post> getPosts(int boardId, int boardType){
-        return postRepository.getPosts(boardId, boardType);
+    public List<Post> getPosts(int boardType){
+        return postRepository.getPosts(boardType);
     }
 
     public List<Post> getByClassIdAndBoardType(int classId, int boardType){

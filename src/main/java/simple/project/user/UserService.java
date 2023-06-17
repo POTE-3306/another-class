@@ -74,7 +74,7 @@ public class UserService {
         return userRepository.selectUserByIdAndEmail(id, email);
     }
 
-    public List<User> findUserById(int id){
-        return userRepository.findById(id);
+    public List<User> findAllUser(){
+        return userRepository.findAllUser();
     }
 }

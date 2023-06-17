@@ -4,24 +4,20 @@ import java.time.LocalDateTime;
 
 public class Comment {
     int id;
-    int courseId;
+    int postId;
     int authorId;
-    String title;
     String content;
     LocalDateTime postTime;
-    String boardType;
 
     public Comment() {
     }
 
-    public Comment(int id, int courseId, int authorId, String title, String content, LocalDateTime postTime, String boardType) {
+    public Comment(int id, int postId, int authorId, String content, LocalDateTime postTime) {
         this.id = id;
-        this.courseId = courseId;
+        this.postId = postId;
         this.authorId = authorId;
-        this.title = title;
         this.content = content;
         this.postTime = postTime;
-        this.boardType = boardType;
     }
 
     public int getId() {
@@ -32,28 +28,12 @@ public class Comment {
         this.id = id;
     }
 
-    public int getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
-    }
-
     public int getAuthorId() {
         return authorId;
     }
 
     public void setAuthorId(int authorId) {
         this.authorId = authorId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getContent() {
@@ -72,24 +52,13 @@ public class Comment {
         this.postTime = postTime;
     }
 
-    public String getBoardType() {
-        return boardType;
-    }
-
-    public void setBoardType(String boardType) {
-        this.boardType = boardType;
-    }
-
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", courseId=" + courseId +
                 ", authorId=" + authorId +
-                ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", postTime=" + postTime +
-                ", boardType='" + boardType + '\'' +
                 '}';
     }
 }

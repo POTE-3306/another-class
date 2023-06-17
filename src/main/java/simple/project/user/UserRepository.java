@@ -80,9 +80,9 @@ public class UserRepository {
         return user;
     }
 
-    public List<User> findById(int id){
-        String sql = "SELECT * FROM Users WHERE id=?";
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql, id);
+    public List<User> findAllUser(){
+        String sql = "SELECT * FROM Users";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
         List<User> userList = new ArrayList<>();
         for (Map<String, Object> row : rows) {
             User user = getUser(row);

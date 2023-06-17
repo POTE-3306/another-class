@@ -26,12 +26,10 @@ public class CommentRepository {
     private RowMapper<Comment> getCommentRowMapper() {
         return ((rs, rowNum) -> new Comment(
                 rs.getInt("id"),
-                rs.getInt("course_id"),
+                rs.getInt("post_id"),
                 rs.getInt("author_id"),
-                rs.getString("title"),
                 rs.getString("content"),
-                rs.getTimestamp("post_time").toLocalDateTime(),
-                rs.getString("board_type")
+                rs.getTimestamp("comment_time").toLocalDateTime()
         ));
     }
 

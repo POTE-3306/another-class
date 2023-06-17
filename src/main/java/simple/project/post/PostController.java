@@ -5,9 +5,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import simple.project.comment.Comment;
+import simple.project.comment.CommentDto;
 import simple.project.comment.CommentService;
 import simple.project.course.Course;
 import simple.project.course.CourseController;
@@ -66,10 +68,53 @@ public class PostController {
         return "main/main";
     }
 
-    @RequestMapping("{postId}")
-    public String noticePage(@PathVariable("postId") int postId){
+    @RequestMapping("/{postId}")
+    public String noticePage(@PathVariable("postId") int postId, @RequestParam("boardType") String boardtype, Model model) {
+        int boardId = 1;
+        System.out.println("boardtype: " + boardtype);
+        List<Post> posts = postService.getPosts(boardId);
+        List<Comment> comments = commentService.getComments(postId);
+        List<User> users = userService.findAllUser();
+        List<PostDto> postDtos = new ArrayList<>();
+        List<CommentDto> commentDtos = new ArrayList<>();
 
-        return "subCommunity";
+        for (Post post : posts) {
+            PostDto postDto = new PostDto(post.getTitle(),post.getContent(), post.getPostTime());
+            User author = getUserById(users, post.getUserId());
+            System.out.println("post user id : " + post.getUserId());
+            System.out.println(getUserById(users, post.getUserId()));
+            if (author != null) {
+                postDto.setAuthor(author.getName());
+                System.out.println("author id : " + author.getId());
+                System.out.println("author : " + author.getName());
+            }
+            postDtos.add(postDto);
+        }
+
+        for (Comment comment : comments) {
+            CommentDto commentDto = new CommentDto(comment.getContent(), comment.getPostTime());
+            User author = getUserById(users, comment.getAuthorId());
+            System.out.println("comment user id : " + comment.getAuthorId());
+            System.out.println(getUserById(users, comment.getAuthorId()));
+            if (author != null) {
+                commentDto.setAuthor(author.getName());
+                System.out.println("author id : " + author.getId());
+                System.out.println("author : " + author.getName());
+            }
+            commentDtos.add(commentDto);
+        }
+
+        model.addAttribute("postDtos", postDtos);
+        model.addAttribute("commentDto", commentDtos);
+
+        return "class/subCommunity";
     }
+
+    private User getUserById(List<User> users, int userId) {
+        return users.stream().filter(user -> user.getId() == userId).findFirst().orElse(null);
+    }
+
+
+
 }
 
