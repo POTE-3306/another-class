@@ -115,7 +115,7 @@
 </head>
 <body>
 <h2>회원가입</h2>
-<form action="signup" method="post" accept-charset="UTF-8">
+<form action="user/signup" method="post" accept-charset="UTF-8">
     <input type="text" id="name" name="name" value="<%= apiUser.getName() %>" readonly>
     <input type="text" id="email" name="email" value="<%= apiUser.getEmail()%>" readonly>
     <input type="number" id="age" name="age" value="<%= apiUser.getAge() %>" readonly>
