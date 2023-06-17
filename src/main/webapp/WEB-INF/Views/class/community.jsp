@@ -56,18 +56,18 @@
     </ul>
 
     <%
-    } else {
+    }
         if (pageType == 4) {
     %>
     <ul>
         <li>
             <a href="#">
-                <button type="button"></button>
+                <button type="button">수다방 방 생성</button>
             </a>
         </li>
     </ul>
-    <% }
-    }%>
+    <%
+    } %>
 </div>
 <div>
     <ul>
