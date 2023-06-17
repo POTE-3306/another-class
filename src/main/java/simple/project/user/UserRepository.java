@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import simple.project.post.Post;
 
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
@@ -95,5 +96,17 @@ public class UserRepository {
             user = getUser(row);
         }
         return user;
+    }
+
+    public List<User> findAllUser(){
+        String sql = "SELECT * FROM Users";
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
+        List<User> userList = new ArrayList<>();
+        for (Map<String, Object> row : rows) {
+            User user = getUser(row);
+            userList.add(user);
+        }
+        return userList;
+
     }
 }

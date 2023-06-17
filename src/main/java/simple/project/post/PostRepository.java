@@ -19,7 +19,7 @@ public class PostRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    private RowMapper<Post> getRowMapper(){
+    private RowMapper<Post> getRowMapper() {
         return ((rs, rowNum) -> new Post(
                 rs.getInt("id"),
                 rs.getInt("course_id"),
@@ -31,11 +31,12 @@ public class PostRepository {
         ));
     }
 
-    public List<Post> findByUserIdOrderByPostTime(int userId){
+    public List<Post> findByUserIdOrderByPostTime(int userId) {
         String query = String.format("select * from Posts where author_id=%d order by post_time desc limit 5", userId);
         List<Post> userPosts = jdbcTemplate.query(query, getRowMapper());
         return userPosts;
     }
+
 
     public ArrayList<Integer> findPostsByAuthor(int authorId) {
         String sql = "SELECT Posts.id " +
@@ -91,5 +92,9 @@ public class PostRepository {
         return classPostList;
     }
 
-
+    public List<Post> getPosts(int boardType) {
+        String sql = "SELECT * FROM Posts WHERE board_type = ?";
+        List<Post> postList = jdbcTemplate.query(sql, getRowMapper(), boardType);
+        return postList;
+    }
 }

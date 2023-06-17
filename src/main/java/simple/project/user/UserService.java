@@ -82,4 +82,8 @@ public class UserService {
         String email = claims.get("email", String.class);
         return userRepository.selectUserByIdAndEmail(id, email);
     }
+
+    public List<User> findAllUser(){
+        return userRepository.findAllUser();
+    }
 }

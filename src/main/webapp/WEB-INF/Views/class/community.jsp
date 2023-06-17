@@ -80,7 +80,7 @@
             ">
             <a href="#">
                 <div>
-                    <a href=<%=String.format("/another-class/lecture/%d", post.getId())%>>
+                    <a href=<%=String.format("/another-class/post/%d?boardType=%s", post.getId(),post.getBoardType())%>>
                         <h3><%=post.getTitle()%>
                         </h3>
                             <%

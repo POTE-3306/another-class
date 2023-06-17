@@ -24,7 +24,10 @@ public class PostService {
     public ArrayList<Integer> getPostsByAuthor(int authorId){
         return postRepository.findPostsByAuthor(authorId);
     }
-//    public List<Post> getBy
+
+    public List<Post> getPosts(int boardType){
+        return postRepository.getPosts(boardType);
+    }
 
     public List<Post> getByClassIdAndBoardType(int classId, int boardType){
         return postRepository.findByClassIdAndBoardType(classId, boardType);

@@ -44,4 +44,5 @@ public class Registration {
     public void setApproved(Boolean approved) {
         isApproved = approved;
     }
+
 }
