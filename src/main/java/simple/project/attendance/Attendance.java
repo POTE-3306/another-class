@@ -4,19 +4,17 @@ import java.time.LocalDateTime;
 
 public class Attendance {
     int id;
-    int postId;
-    int authorId;
-    String content;
+    int userId;
+    int courseId;;
     LocalDateTime commentTime;
 
     public Attendance() {
     }
 
-    public Attendance(int id, int postId, int authorId, String content, LocalDateTime commentTime) {
+    public Attendance(int id, int userId, int courseId, LocalDateTime commentTime) {
         this.id = id;
-        this.postId = postId;
-        this.authorId = authorId;
-        this.content = content;
+        this.userId = userId;
+        this.courseId = courseId;
         this.commentTime = commentTime;
     }
 
@@ -28,28 +26,20 @@ public class Attendance {
         this.id = id;
     }
 
-    public int getPostId() {
-        return postId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
     public LocalDateTime getCommentTime() {
