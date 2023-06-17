@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import java.util.List;
@@ -74,5 +75,11 @@ public class CourseService {
 
     public List<Course> getByUserIdCourse(int userId) {
         return courseRepository.findByUserId(userId);
+    }
+    public void insertCode(String code, int courseId){
+        courseRepository.insertCode(code, courseId);
+    }
+    public LocalDateTime getLimitTimeById(int courseId){
+        return courseRepository.findLimitTimeById(courseId);
     }
 }
