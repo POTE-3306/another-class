@@ -70,16 +70,21 @@ public class PostController {
 
     @RequestMapping("/{postId}")
     public String noticePage(@PathVariable("postId") int postId, @RequestParam("boardType") String boardtype, Model model) {
-        int boardId = 1;
         System.out.println("boardtype: " + boardtype);
-        List<Post> posts = postService.getPosts(boardId);
+        HashMap<String, Integer> boardMapper = new HashMap<>();
+        boardMapper.put("NOTICE", 1);
+        boardMapper.put("ASSIGNMENT", 2);
+        boardMapper.put("MATERIAL", 3);
+        boardMapper.put("CHAT", 4);
+
+        List<Post> posts = postService.getPosts(boardMapper.get(boardtype));
         List<Comment> comments = commentService.getComments(postId);
         List<User> users = userService.findAllUser();
         List<PostDto> postDtos = new ArrayList<>();
         List<CommentDto> commentDtos = new ArrayList<>();
 
         for (Post post : posts) {
-            PostDto postDto = new PostDto(post.getTitle(),post.getContent(), post.getPostTime());
+            PostDto postDto = new PostDto(post.getTitle(), post.getContent(), post.getPostTime());
             User author = getUserById(users, post.getUserId());
             System.out.println("post user id : " + post.getUserId());
             System.out.println(getUserById(users, post.getUserId()));
@@ -88,7 +93,8 @@ public class PostController {
                 System.out.println("author id : " + author.getId());
                 System.out.println("author : " + author.getName());
             }
-            postDtos.add(postDto);
+            if (post.getId() == postId)
+                model.addAttribute("postDto", postDto);
         }
 
         for (Comment comment : comments) {
@@ -104,7 +110,7 @@ public class PostController {
             commentDtos.add(commentDto);
         }
 
-        model.addAttribute("postDtos", postDtos);
+
         model.addAttribute("commentDto", commentDtos);
 
         return "class/subCommunity";
@@ -113,7 +119,6 @@ public class PostController {
     private User getUserById(List<User> users, int userId) {
         return users.stream().filter(user -> user.getId() == userId).findFirst().orElse(null);
     }
-
 
 
 }

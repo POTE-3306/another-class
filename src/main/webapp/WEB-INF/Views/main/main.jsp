@@ -100,14 +100,17 @@
                                     for (Post post : postList) {
 
                                 %>
-                               <form method="post" action="<%= post.getId() %>">
-                                <li>
-                                    <button type="submit" style="border: none; background: none; padding: 0;">
-                                        <%= post.getTitle() %>
-                                    </button>
-                                    <input type="hidden" name="boardType" value="<%= post.getBoardType()%>">
-                                </li>
-                            </form>
+                                <a href=<%=String.format("/another-class/post/%d?boardType=%s", post.getId(), post.getBoardType())%>
+                                           <%= post.getTitle() %> </a>
+
+<%--                               <form method="post" action="<%= post.getId() %>">--%>
+<%--                                <li>--%>
+<%--                                    <button type="submit" style="border: none; background: none; padding: 0;">--%>
+<%--                                        <%= post.getTitle() %>--%>
+<%--                                    </button>--%>
+<%--                                    <input type="hidden" name="boardType" value="<%= post.getBoardType()%>">--%>
+<%--                                </li>--%>
+<%--                            </form>--%>
                                 <%
                                     }
                                 %>

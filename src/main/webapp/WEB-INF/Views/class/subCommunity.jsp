@@ -1,5 +1,9 @@
+<%@ page import="simple.project.post.PostDto" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    PostDto postDto = (PostDto) request.getAttribute("postDto");
+%>
 <html>
 <head>
     <title>Community</title>
@@ -17,14 +21,12 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="postDto" items="${postDtos}">
         <tr>
-            <td>${postDto.title}</td>
-            <td>${postDto.author}</td>
-            <td>${postDto.postTime}</td>
-            <td>${postDto.content}</td>
+            <td><%= postDto.getTitle()%></td>
+            <td><%= postDto.getAuthor()%></td>
+            <td><%= postDto.getContent()%></td>
+            <td><%= postDto.getPostTime()%></td>
         </tr>
-    </c:forEach>
     </tbody>
 </table>
 
