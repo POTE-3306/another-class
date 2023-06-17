@@ -26,12 +26,13 @@
 <h4><%=(String) request.getAttribute("classId")%></h4>
 <%--    TODO: myPage 추가--%>
 <a href="/another-class/mypage">마이페이지</a>
+<a href=<%=String.format("/another-class/lecture/%d/attend", course.getId())%>> 출결 </a>
 
 <% if(user.isAdmin()){%>
-    <a href=<%=String.format("%d/manage", course.getId())%>>관리</a>
+    <a href=<%=String.format("/another-class/lecture/%d/manage", course.getId())%>>관리</a>
 <%}%>
 
-<a href=<%=String.format("%d/community", course.getId())%>>커뮤니티</a>
+<a href=<%=String.format("/another-class/lecture/%d/community", course.getId())%>>커뮤니티</a>
 <a href="/another-class/post/main">강의 목록 가기</a>
 
 <!-- Display post information -->
