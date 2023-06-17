@@ -39,13 +39,15 @@
         <div class="container">
             <div class="row main-row" >
                 <div class="col-10 col-12-medium" style="text-align: right;">
+                    <% if (user.isAdmin()) { %>
                     <button onclick="window.location.href='/another-class/course/make-class'" style="
-                                                         border-radius: 5px;
-                                                         border: none;
-                                                         color: #fff;
-                                                         background-color: #007b9d;
-                                                         padding: 10px 20px;
-                ">강의 생성</button>
+                                                                                                 border-radius: 5px;
+                                                                                                 border: none;
+                                                                                                 color: #fff;
+                                                                                                 background-color: #007b9d;
+                                                                                                 padding: 10px 20px;
+                                                                                            ">강의 생성</button>
+                    <% } %>
                 </div>
                 <div class="col-2 col-12-medium">
                 </div>
