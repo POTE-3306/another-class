@@ -33,7 +33,7 @@
                     %>
                         <hr class="major" />
                         <h2><%= coursePlan.getTitle() %></h2>
-                        <p><%= coursePlan.getDescription() %></p>
+                        <p><%= coursePlan.getDescription().replaceAll("\n", "<br/>") %></p>
                     <%
                         }
                         if(user.isAdmin()){
