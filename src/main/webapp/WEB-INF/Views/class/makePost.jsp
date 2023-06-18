@@ -46,6 +46,7 @@
                                 <label for="content">내용:</label>
                                 <textarea id="content" name="content" required></textarea>
                             </div>
+                            <br/>
                             <div class="col-12">
                                 <ul class="actions">
                                     <button type="submit">Submit</button>
