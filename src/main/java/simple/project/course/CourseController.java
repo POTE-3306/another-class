@@ -82,10 +82,10 @@ public class CourseController {
     }
 
 
-    @GetMapping("/course/makeCoursePlan")
-    public String makeCoursePlan(@RequestParam("courseId") int courseId, Model model) {
+    @GetMapping("/course/makeCoursePlan/{courseId}")
+    public String makeCoursePlan(@PathVariable int courseId, Model model) {
         model.addAttribute("courseId", courseId);
-        return "class/makeCoursePlan";
+        return "class/makeCoursePlan2";
     }
 
 }
