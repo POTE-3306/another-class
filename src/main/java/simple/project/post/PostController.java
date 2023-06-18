@@ -1,5 +1,6 @@
 package simple.project.post;
 
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import simple.project.comment.CommentService;
 import simple.project.course.Course;
 import simple.project.course.CourseController;
 import simple.project.course.CourseService;
+import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,14 +33,16 @@ public class PostController {
     private final CourseService courseService;
     private final CommentService commentService;
     private final UserService userService;
+    private final JWToken jwToken;
 
 
     @Autowired
-    public PostController(PostService postService, CourseService courseService, CommentService commentService, UserService userService) {
+    public PostController(PostService postService, CourseService courseService, CommentService commentService, UserService userService, JWToken jwToken) {
         this.postService = postService;
         this.courseService = courseService;
         this.commentService = commentService;
         this.userService = userService;
+        this.jwToken = jwToken;
     }
 
     @RequestMapping("/classMain")
@@ -69,49 +74,61 @@ public class PostController {
     }
 
     @RequestMapping("/{postId}")
-    public String noticePage(@PathVariable("postId") int postId, @RequestParam("boardType") String boardtype, Model model) {
-        System.out.println("boardtype: " + boardtype);
-        HashMap<String, Integer> boardMapper = new HashMap<>();
-        boardMapper.put("NOTICE", 1);
-        boardMapper.put("ASSIGNMENT", 2);
-        boardMapper.put("MATERIAL", 3);
-        boardMapper.put("CHAT", 4);
-
-        List<Post> posts = postService.getPosts(boardMapper.get(boardtype));
-        List<Comment> comments = commentService.getComments(postId);
-        List<User> users = userService.findAllUser();
-        List<PostDto> postDtos = new ArrayList<>();
-        List<CommentDto> commentDtos = new ArrayList<>();
-
-        for (Post post : posts) {
-            PostDto postDto = new PostDto(post.getTitle(), post.getContent(), post.getPostTime());
-            User author = getUserById(users, post.getUserId());
-            System.out.println("post user id : " + post.getUserId());
-            System.out.println(getUserById(users, post.getUserId()));
-            if (author != null) {
-                postDto.setAuthor(author.getName());
-                System.out.println("author id : " + author.getId());
-                System.out.println("author : " + author.getName());
-            }
-            if (post.getId() == postId)
-                model.addAttribute("postDto", postDto);
+    public String noticePage(
+            HttpSession session,
+            @PathVariable("postId") int postId,
+            @RequestParam("boardType") String boardtype,
+            Model model
+    ) {
+        String token = (String) session.getAttribute("token");
+        if(token==null){
+            return "index";
         }
-
-        for (Comment comment : comments) {
-            CommentDto commentDto = new CommentDto(comment.getContent(), comment.getPostTime());
-            User author = getUserById(users, comment.getAuthorId());
-            System.out.println("comment user id : " + comment.getAuthorId());
-            System.out.println(getUserById(users, comment.getAuthorId()));
-            if (author != null) {
-                commentDto.setAuthor(author.getName());
-                System.out.println("author id : " + author.getId());
-                System.out.println("author : " + author.getName());
+        try {
+            Claims claims = jwToken.getClaims(token);
+            User user = userService.getUserByToken(claims);
+            if (user == null){
+                return "index";
             }
-            commentDtos.add(commentDto);
+            HashMap<String, Integer> boardMapper = new HashMap<>();
+            boardMapper.put("NOTICE", 1);
+            boardMapper.put("ASSIGNMENT", 2);
+            boardMapper.put("MATERIAL", 3);
+            boardMapper.put("CHAT", 4);
+
+            List<Post> posts = postService.getPosts(boardMapper.get(boardtype));
+            List<Comment> comments = commentService.getComments(postId);
+            List<User> users = userService.findAllUser();
+            List<PostDto> postDtos = new ArrayList<>();
+            List<CommentDto> commentDtos = new ArrayList<>();
+
+            for (Post post : posts) {
+                PostDto postDto = new PostDto(post.getTitle(), post.getContent(), post.getPostTime(), postId);
+                User author = getUserById(users, post.getUserId());
+                if (author != null) {
+                    postDto.setAuthor(author.getName());
+                }
+                if (post.getId() == postId)
+                    model.addAttribute("postDto", postDto);
+            }
+
+            for (Comment comment : comments) {
+                CommentDto commentDto = new CommentDto(comment.getContent(), comment.getPostTime());
+                User author = getUserById(users, comment.getAuthorId());
+                if (author != null) {
+                    commentDto.setAuthor(author.getName());
+                }
+                commentDtos.add(commentDto);
+            }
+
+            model.addAttribute("commentDto", commentDtos);
+            model.addAttribute("user", user);
+            model.addAttribute("boardType", boardtype);
+
+        } catch (Exception e){
+            e.printStackTrace();
+            return "index";
         }
-
-
-        model.addAttribute("commentDto", commentDtos);
 
         return "class/subCommunity";
     }
