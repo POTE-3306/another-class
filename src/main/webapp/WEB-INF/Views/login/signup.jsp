@@ -29,12 +29,15 @@
                                     <h3>회원가입</h3>
                                 </div>
                                 <div class="col-6 col-12-xsmall">
+                                    <label for="name">이름</label>
                                     <input type="text" name="name" id="name" value="<%= apiUser.getName() %>" readonly />
                                 </div>
                                 <div class="col-6 col-12-xsmall">
+                                    <label for="email">이메일</label>
                                     <input type="email" name="email" id="email" value="<%= apiUser.getEmail() %>" readonly />
                                 </div>
                                 <div class="col-12">
+                                    <label for="age">나이</label>
                                     <input type="number" id="age" name="age" value="<%= apiUser.getAge() %>" readonly />
                                 </div>
                                 <div class="col-6 col-12-small">

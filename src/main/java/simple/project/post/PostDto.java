@@ -7,14 +7,16 @@ public class PostDto {
     String author;
     String content;
     LocalDateTime postTime;
+    Integer postId;
 
     public PostDto() {
     }
 
-    public PostDto(String title, String content, LocalDateTime postTime) {
+    public PostDto(String title, String content, LocalDateTime postTime, Integer postId) {
         this.title = title;
         this.content = content;
         this.postTime = postTime;
+        this.postId = postId;
     }
 
     public void setTitle(String title) {
@@ -35,6 +37,14 @@ public class PostDto {
 
     public String getTitle() {
         return title;
+    }
+
+    public Integer getPostId() {
+        return postId;
+    }
+
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
     public String getAuthor() {

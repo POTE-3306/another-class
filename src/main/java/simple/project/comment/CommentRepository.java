@@ -33,4 +33,9 @@ public class CommentRepository {
         ));
     }
 
+    public void insertComment(int postId, int author_id, String content){
+        String query = String.format("INSERT INTO Comments(post_id, author_id, content) values (%d, %d, '%s');", postId, author_id, content);
+        jdbcTemplate.update(query);
+    }
+
 }

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import simple.project.course.Course;
 import simple.project.course.CourseService;
 import simple.project.user.User;
 
@@ -17,12 +16,10 @@ import java.util.List;
 @Controller
 public class CoursePlanController {
     private final CoursePlanService coursePlanService;
-    private final CourseService courseService;
 
     @Autowired
-    public CoursePlanController(CoursePlanService coursePlanService, CourseService courseService) {
+    public CoursePlanController(CoursePlanService coursePlanService) {
         this.coursePlanService = coursePlanService;
-        this.courseService = courseService;
     }
 
     @PostMapping("/course/insert-plan")
@@ -36,22 +33,33 @@ public class CoursePlanController {
         coursePlan.setCourseId(id);
         coursePlan.setDescription(content);
         coursePlanService.insertCoursePlan(coursePlan);
-
         return "redirect:/lecture/" + courseId;
+    }
+
+    @PostMapping("/course/add-plan")
+    public String addPlan(
+            @RequestParam("courseId") String courseId,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content) {
+        CoursePlan coursePlan = new CoursePlan();
+        coursePlan.setTitle(title);
+        int id = Integer.parseInt(courseId);
+        coursePlan.setCourseId(id);
+        coursePlan.setDescription(content);
+        coursePlanService.insertCoursePlan(coursePlan);
+        return "redirect:/lecture/" + courseId + "/plan";
     }
 
     @RequestMapping("lecture/{class_id}/plan")
     public String mainClass(
             HttpServletRequest request,
             Model model,
-            @PathVariable("class_id") String classId
+            @PathVariable("class_id") int classId
     ){
         User user = (User) request.getAttribute("user");
         try {
-            Course course = courseService.getCourseById(Integer.parseInt(classId));
-            List<CoursePlan> coursePlanList = coursePlanService.getCoursePlanList(Integer.parseInt(classId));
+            List<CoursePlan> coursePlanList = coursePlanService.getCoursePlanList(classId);
             model.addAttribute("user", user);
-            model.addAttribute("course", course);
             model.addAttribute("classId", classId);
             model.addAttribute("coursePlanList", coursePlanList);
         } catch (Exception e){

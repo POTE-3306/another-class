@@ -14,6 +14,7 @@ import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
@@ -46,47 +47,23 @@ public class CourseController {
         return "classList";
     }
     @GetMapping("/course/make-class")
-    public String makeClassPage(Model model,HttpSession session) {
-        String token = (String) session.getAttribute("token");
-        if (token == null) {
-            return "index";
-        }
-        try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
-            if (user == null) {
-                return "index";
-            }
-            model.addAttribute("user", user);
-        } catch (Exception e){
-            e.printStackTrace();
-            return "index";
-        }
-        return "/makeClass";
+    public String makeClassPage(Model model, HttpServletRequest request) {
+        User user = (User) request.getAttribute("user");
+        model.addAttribute("user", user);
+        return "class/makeClass";
     }
 
     @PostMapping("/course/insert-class")
     public String makeClass(
-            HttpSession session,
+            HttpServletRequest request,
             @RequestParam("image") MultipartFile image,
             @RequestParam("title") String title,
             @RequestParam("content") String content,
             @RequestParam("userId") int adminId,
             Model model
     ) {
-        User user = new User();
-        String token = (String) session.getAttribute("token");
-        if (token == null) {
-            return "index";
-        }
-        try{
-            Claims claims = jwToken.getClaims(token);
-            user = userService.getUserByToken(claims);
-            if (user == null || !user.isAdmin()) {
-                return "index";
-            }
-        } catch (Exception e){
-            e.printStackTrace();
+        User user = (User) request.getAttribute("user");
+        if (!user.isAdmin()) {
             return "index";
         }
         Course course = new Course();
@@ -97,27 +74,18 @@ public class CourseController {
         course.setName(title);
         course.setDescription(content);
         course.setAdmin_id(adminId);
-
-        // Call the service method passing the Course instance
         courseService.makeClass(course);
         int courseId = courseService.findId(uuid);
         registrationService.adminRegister(user.getId(), courseId);
-
         model.addAttribute("courseId", courseId);
-        return "/makeCoursePlan";
+        return "class/makeCoursePlan";
     }
 
 
-    @GetMapping("/course/makeCoursePlan")
-    public String makeCoursePlan(@RequestParam("courseId") int courseId, Model model) {
-        // Retrieve the course details based on the courseId
-        Course course = courseService.getCourseById(courseId);
-
-        // Pass the course object to the makeCoursePlan.jsp view
-        model.addAttribute("course", course);
-
-        // Return the makeCoursePlan.jsp view
-        return "makeCoursePlan";
+    @GetMapping("/course/makeCoursePlan/{courseId}")
+    public String makeCoursePlan(@PathVariable int courseId, Model model) {
+        model.addAttribute("courseId", courseId);
+        return "class/makeCoursePlan2";
     }
 
 }
