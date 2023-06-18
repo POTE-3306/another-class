@@ -76,7 +76,7 @@ public class CourseRepository {
         }
     }
     public void insertCode(String code, int courseId){
-        String query = String.format("UPDATE Courses SET code = %s, limit_time=CONVERT_TZ(now()+INTERVAL 5 MINUTE, '+00:00', '+09:00'), lecture_days=lecture_days+1 WHERE id=%d", code, courseId);
+        String query = String.format("UPDATE Courses SET code = %s, limit_time=now()+INTERVAL 5 MINUTE, lecture_days=lecture_days+1 WHERE id=%d", code, courseId);
         jdbcTemplate.update(query);
     }
     public LocalDateTime findLimitTimeById(int courseId) {
