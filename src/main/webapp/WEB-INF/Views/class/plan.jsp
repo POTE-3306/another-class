@@ -28,13 +28,19 @@
                     <header class="main">
                         <h1>강의 계획</h1>
                     </header>
-
                     <%
                         for(CoursePlan coursePlan : coursePlanList) {
                     %>
                         <hr class="major" />
                         <h2><%= coursePlan.getTitle() %></h2>
                         <p><%= coursePlan.getDescription() %></p>
+                    <%
+                        }
+                        if(user.isAdmin()){
+                    %>
+                    <ul class="actions">
+                        <li><a href='<%= "/another-class/course/makeCoursePlan/" + classId %>' class="button primary">강의 계획 추가</a></li>
+                    </ul>
                     <%
                         }
                     %>
