@@ -1,4 +1,5 @@
 package simple.project.attendance;
+import com.mysql.cj.result.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -6,11 +7,12 @@ import org.springframework.stereotype.Repository;
 import simple.project.course.Course;
 import simple.project.user.User;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.security.Timestamp;
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class AttendanceRepository {
@@ -63,6 +65,7 @@ public class AttendanceRepository {
         });
         return userList;
     }
+  
     private RowMapper<Attendance> getRowMapper() {
         return (rs, rowNum) -> new Attendance(
                 rs.getInt("id"),
@@ -98,4 +101,23 @@ public class AttendanceRepository {
         List<Attendance> attendanceList = jdbcTemplate.query(query, getRowMapper());
         return attendanceList;
     }
+
+ 
+    public HashMap<Integer, String> getAtendTime(int courseId){
+        String sql = "select *\n" +
+                "from Attendances\n" +
+                "where course_id = ?\n" +
+                "  AND DATE(Attendances.attendance_time) = curdate()";
+        System.out.println(1);
+        List<Attendance> rows = jdbcTemplate.query(sql,rowMapper(), courseId);
+        System.out.println("rows size: " + rows.size());
+        HashMap<Integer, String> map = new HashMap<>();
+        for (Attendance row : rows) {
+            System.out.println(2);
+            map.put(row.getUserId(), row.getAttendanceTime().toString());
+            System.out.println("map size : " + map.size());
+        }
+        return map;
+    }
+
 }

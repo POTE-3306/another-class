@@ -5,48 +5,58 @@ import java.time.LocalDateTime;
 public class Attendance {
     int id;
     int userId;
-    int courseId;;
-    LocalDateTime commentTime;
+    int courseId;
+    LocalDateTime attendanceTime;
 
-    public Attendance() {
-    }
-
-    public Attendance(int id, int userId, int courseId, LocalDateTime commentTime) {
-        this.id = id;
-        this.userId = userId;
-        this.courseId = courseId;
-        this.commentTime = commentTime;
-    }
-
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Attendance{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", courseId=" + courseId +
+                ", attendanceTime=" + attendanceTime +
+                '}';
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getCourseId() {
-        return courseId;
     }
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
 
-    public LocalDateTime getCommentTime() {
-        return commentTime;
+    public void setAttendanceTime(LocalDateTime attendanceTime) {
+        this.attendanceTime = attendanceTime;
     }
 
-    public void setCommentTime(LocalDateTime commentTime) {
-        this.commentTime = commentTime;
+    public int getId() {
+        return id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public int getCourseId() {
+        return courseId;
+    }
+
+    public LocalDateTime getAttendanceTime() {
+        return attendanceTime;
+    }
+
+    public Attendance(int id, int userId, int courseId, LocalDateTime attendanceTime) {
+        this.id = id;
+        this.userId = userId;
+        this.courseId = courseId;
+        this.attendanceTime = attendanceTime;
+    }
+
+    public Attendance() {
     }
 }

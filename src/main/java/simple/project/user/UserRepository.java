@@ -48,14 +48,14 @@ public class UserRepository {
     public User insertUser(User user) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(con -> {
-                PreparedStatement pst = con.prepareStatement(UserQuery.INSERT_USER, new String[]{"id"});
-                pst.setString(1, user.getName());
-                pst.setString(2, user.getEmail());
-                pst.setInt(3, user.getAge());
-                pst.setString(4, String.valueOf(user.getGender()));
-                pst.setBoolean(5, user.isAdmin());
-                pst.setString(6, user.getNaverId());
-                return pst;
+            PreparedStatement pst = con.prepareStatement(UserQuery.INSERT_USER, new String[]{"id"});
+            pst.setString(1, user.getName());
+            pst.setString(2, user.getEmail());
+            pst.setInt(3, user.getAge());
+            pst.setString(4, String.valueOf(user.getGender()));
+            pst.setBoolean(5, user.isAdmin());
+            pst.setString(6, user.getNaverId());
+            return pst;
         }, keyHolder);
         user.setId(keyHolder.getKey().intValue());
         return user;
@@ -98,7 +98,7 @@ public class UserRepository {
         return user;
     }
 
-    public List<User> findAllUser(){
+    public List<User> findAllUser() {
         String sql = "SELECT * FROM Users";
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(sql);
         List<User> userList = new ArrayList<>();
@@ -109,4 +109,37 @@ public class UserRepository {
         return userList;
 
     }
+
+
+
+//    public List<User> findCurAttendanceByCourseId(int courseId){
+//        String query = String.format("select Users.id AS id, Users.name AS name, Users.email AS email from " +
+//                "Attendances join Users on Attendances.user_id = Users.id " +
+//                "where course_id=%d AND DATE(Attendances.attendance_time)=curdate();", courseId);
+//        List<User> userList = jdbcTemplate.query(query, (rs, rowNum) -> {
+//            User user = new User();
+//            user.setId(rs.getInt("id"));
+//            user.setName(rs.getString("name"));
+//            user.setEmail(rs.getString("email"));
+//            return user;
+//        });
+//        return userList;
+//    }
+//
+//    public List<User> findNotAttendanceByCourseId(int courseId, List<Integer> idList){
+//        String formattedIdList = idList.stream()
+//                .map(Object::toString)
+//                .collect(Collectors.joining(", "));
+//        String query = String.format("SELECT Users.id AS id, Users.name AS name, Users.email AS email " +
+//                "FROM Users " +
+//                "JOIN Registrations R ON Users.id = R.user_id " +
+//                "WHERE R.course_id = %d AND Users.id NOT IN (%s)", courseId, formattedIdList);
+//        return jdbcTemplate.query(query, (rs, rowNum) -> {
+//            User user = new User();
+//            user.setId(rs.getInt("id"));
+//            user.setName(rs.getString("name"));
+//            user.setEmail(rs.getString("email"));
+//            return user;
+//        });
+//}
 }
