@@ -107,5 +107,10 @@
             </div>
         </div>
     </div>
+    <script src="/another-class/class/assets/js/jquery.min.js"></script>
+    <script src="/another-class/class/assets/js/browser.min.js"></script>
+    <script src="/another-class/class/assets/js/breakpoints.min.js"></script>
+    <script src="/another-class/class/assets/js/util.js"></script>
+    <script src="/another-class/class/assets/js/main.js"></script>
 </body>
 </html>
