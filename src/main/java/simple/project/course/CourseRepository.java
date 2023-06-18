@@ -56,8 +56,8 @@ public class CourseRepository {
     }
 
     public void insert(Course course) {
-        String sql = "INSERT INTO Courses (uuid, logo_url, name, description,admin_id) VALUES (?,?,?,?,?)";
-        jdbcTemplate.update(sql, course.getUuid(), course.getLogo_url(), course.getName(), course.getDescription(), course.getAdmin_id());
+        String sql = "INSERT INTO Courses (uuid, logo_url, name, description,admin_id, lecture_days) VALUES (?,?,?,?,?,?)";
+        jdbcTemplate.update(sql, course.getUuid(), course.getLogo_url(), course.getName(), course.getDescription(), course.getAdmin_id(),0);
     }
 
     public void update(String courseId, String title, String content) {
@@ -93,4 +93,5 @@ public class CourseRepository {
             }
         });
     }
+
 }
