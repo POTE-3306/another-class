@@ -98,7 +98,6 @@
                     <ul>
                         <li><a href='<%= "/another-class/lecture/" + classId + "/attend" %>'>출석</a></li>
                         <li><a href='<%= "/another-class/lecture/" + classId + "/plan" %>'>강의 계획</a></li>
-                        <li><a href="/another-class/mypage">마이페이지</a></li>
                         <li>
                             <span class="opener">커뮤니티</span>
                             <ul>
@@ -110,6 +109,7 @@
                             </ul>
                         </li>
                         <li><a href="/another-class/post/main">강의 목록</a></li>
+                        <li><a href="/another-class/mypage">마이페이지</a></li>
                         <% if (user.isAdmin()) {%>
                         <li><a href='<%= "/another-class/lecture/" + classId + "/manage" %>'>관리</a></li>
                         <%}%>
