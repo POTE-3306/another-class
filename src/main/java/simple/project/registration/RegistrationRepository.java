@@ -61,7 +61,7 @@ public class RegistrationRepository {
     }
 
     public List<Registration> findAttendListByCourseId(int course_id) {
-        String sql = "SELECT * FROM registrations WHERE is_approved =1 AND course_id=?";
+        String sql = "SELECT * FROM Registrations WHERE is_approved =1 AND course_id=?";
         List<Registration> attendList = jdbcTemplate.query(sql, getRowMapper(), course_id);
         return attendList;
     }
