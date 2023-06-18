@@ -60,6 +60,8 @@
                         </ul>
                     </li>
                     <li><a href="/another-class/post/main">강의 목록</a></li>
+                    <li><a href="/another-class/mypage" >마이페이지</a></li>
+
                     <% if (user.isAdmin()) { %>
                     <li>
                         <span class="opener">관리</span>
@@ -69,7 +71,6 @@
                             <li><a href='<%= "/another-class/lecture/" + classId + "/attendManage" %>'>출석관리</a></li>
                         </ul>
                     </li>
-                    <li><a href="/another-class/mypage" >마이페이지</a></li>
                     <% } %>
                 </ul>
             </nav>
