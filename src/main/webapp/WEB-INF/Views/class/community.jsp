@@ -32,9 +32,8 @@
                 </header>
 
                 <section>
-                    <% if (user.isAdmin()) {%>
                     <div>
-                        <ul>
+                        <% if (user.isAdmin()) {%>
                             <% if (pageType == 1) {%>
                             <ul class="actions">
                                 <li><a href="<%= String.format("create-post?pageType=%d", pageType)%>" class="button primary">공지 생성</a></li>
@@ -48,7 +47,6 @@
                                 <li><a href="<%= String.format("create-post?pageType=%d", pageType)%>" class="button primary">수업 자료 생성</a></li>
                             </ul>
                             <% } %>
-                        </ul>
                         <%
                             }
                             if (pageType == 4) {
