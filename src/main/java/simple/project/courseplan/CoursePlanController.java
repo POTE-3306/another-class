@@ -44,14 +44,12 @@ public class CoursePlanController {
     public String mainClass(
             HttpServletRequest request,
             Model model,
-            @PathVariable("class_id") String classId
+            @PathVariable("class_id") int classId
     ){
         User user = (User) request.getAttribute("user");
         try {
-            Course course = courseService.getCourseById(Integer.parseInt(classId));
-            List<CoursePlan> coursePlanList = coursePlanService.getCoursePlanList(Integer.parseInt(classId));
+            List<CoursePlan> coursePlanList = coursePlanService.getCoursePlanList(classId);
             model.addAttribute("user", user);
-            model.addAttribute("course", course);
             model.addAttribute("classId", classId);
             model.addAttribute("coursePlanList", coursePlanList);
         } catch (Exception e){

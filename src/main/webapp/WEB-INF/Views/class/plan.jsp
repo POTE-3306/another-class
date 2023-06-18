@@ -1,12 +1,10 @@
 <%@ page import="simple.project.user.User" %>
-<%@ page import="simple.project.course.Course" %>
 <%@ page import="simple.project.courseplan.CoursePlan" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String classId = (String) request.getAttribute("classId");
+    int classId = (int) request.getAttribute("classId");
     User user = (User) request.getAttribute("user");
-    Course course = (Course) request.getAttribute("course");
     List<CoursePlan> coursePlanList = (List<CoursePlan>) request.getAttribute("coursePlanList");
 %>
 
