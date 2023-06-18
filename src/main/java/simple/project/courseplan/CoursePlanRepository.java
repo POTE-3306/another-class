@@ -40,12 +40,12 @@ public class CoursePlanRepository {
 
     }
     public List<CoursePlan> getCoursePlanList(int courseId) {
-        String sql = "SELECT ID, TITLE, DESCRIPTION FROM COURSEPLANS WHERE COURSE_ID = ?";
+        String sql = "SELECT id, title, description FROM CoursePlans WHERE course_id = ? order by id asc";
         return jdbcTemplate.query(sql, new Object[]{courseId}, (rs, rowNum) -> {
             CoursePlan coursePlan = new CoursePlan();
-            coursePlan.setId(rs.getInt("ID"));
-            coursePlan.setTitle(rs.getString("TITLE"));
-            coursePlan.setDescription(rs.getString("DESCRIPTION"));
+            coursePlan.setId(rs.getInt("id"));
+            coursePlan.setTitle(rs.getString("title"));
+            coursePlan.setDescription(rs.getString("description"));
             return coursePlan;
         });
     }
