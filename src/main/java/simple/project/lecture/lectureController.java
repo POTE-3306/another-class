@@ -273,6 +273,7 @@ public class lectureController {
         }
         return "class/registerManage";
     }
+
     @RequestMapping("{class_id}/attendManage")
     public String attendManagePage(
             HttpServletRequest request,
@@ -287,6 +288,8 @@ public class lectureController {
             List<AtendUserDto> atendUserDtos = new ArrayList<>();
             for (Registration registration : attendList) {
                 User student = getUserById(users, registration.getUserId());
+                if(student.isAdmin())
+                    continue;
                 AtendUserDto audto = new AtendUserDto();
                 if (student != null) {
                     audto.setUserId(student.getId());
