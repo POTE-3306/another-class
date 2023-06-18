@@ -56,31 +56,25 @@
                             </div>
                         </form>
                 <% } else {%>
-                        <div class="content">
-                            <header>
+                        <div class="box">
                                 <p>존재하는 코드 :<%=course.getCode()%><br/>
                                 </p>
                                 <p>만료 시점 : <%=course.getLimit_time().format(DateTimeFormatter.ofPattern("HH:mm"))%>
                                 </p>
-                            </header>
                         </div>
                 <% } %>
                 <% } else {
                     if (course.getLimit_time().isBefore(LocalDateTime.now())) {
                 %>
-                        <div class="content">
-                            <header>
-                                <p><%=course.getLimit_time().format(DateTimeFormatter.ofPattern("HH:mm"))%> 만료 되었습니다.</p>
+                        <div class="box">
+                                <p><%=course.getLimit_time().format(DateTimeFormatter.ofPattern("HH:mm"))%> 만료 되었거나, 아직 오픈되지 않았습니다.</p>
                                 <p>선생님께 문의하세요.</p>
-                            </header>
                         </div>
                 <% } else {
                     if (userIds.contains(user.getId())) {
                 %>
-                        <div class="content">
-                            <header>
+                        <div class="box">
                                 <p>출결 완료</p>
-                            </header>
                         </div>
                 <% } else {
                 %>
