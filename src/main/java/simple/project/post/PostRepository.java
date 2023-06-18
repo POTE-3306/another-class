@@ -38,6 +38,12 @@ public class PostRepository {
         return userPosts;
     }
 
+    public int getCourseId(int postId) {
+        String sql = "SELECT course_id FROM Posts WHERE id = ?";
+        int courseId = jdbcTemplate.queryForObject(sql, Integer.class, postId);
+        return courseId;
+    }
+
 
     public ArrayList<Integer> findPostsByAuthor(int authorId) {
         String sql = "SELECT Posts.id " +

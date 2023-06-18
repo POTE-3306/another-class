@@ -21,6 +21,10 @@ public class PostService {
     public List<HashMap<Integer, ArrayList<String>>> getPostList(ArrayList<Integer> postlist) {
         return postRepository.getPostList(postlist);
     }
+
+    public int getCourseId(int postId){
+        return postRepository.getCourseId(postId);
+    }
     public ArrayList<Integer> getPostsByAuthor(int authorId){
         return postRepository.findPostsByAuthor(authorId);
     }

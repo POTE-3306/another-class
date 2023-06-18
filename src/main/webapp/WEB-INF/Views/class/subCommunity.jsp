@@ -7,6 +7,7 @@
     PostDto postDto = (PostDto) request.getAttribute("postDto");
     User user = (User) request.getAttribute("user");
     String boardType = (String) request.getAttribute("boardType");
+    int classId = (int) request.getAttribute("classId");
 %>
 <html>
 <head>
@@ -19,59 +20,92 @@
             window.history.back(); // 뒤로가기 기능 실행
         }
     </script>
-    <title>Community</title>
 </head>
 <body class="is-preload">
-<div id="wrapper">
-    <div id="main">
-        <div class="inner">
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
 
-            <div class="post">
-                <div class="post-header">
-                    <h1><%= postDto.getTitle() %></h1>
-                    <div class="post-info">
-                        <span class="post-author">Author: <%= postDto.getAuthor() %></span>
-                        <span class="post-time">Post Time: <%= postDto.getPostTime() %></span>
-                    </div>
-                </div>
-                <hr/>
+                <header id="header">
+                    <a href='<%= "/another-class/lecture/" + classId %>' class="logo"><strong>CLASS</strong></a>
+                </header>
 
-                <div class="post-content">
-                    <h2><%= postDto.getContent().replaceAll("\n", "<br/>") %></h2>
-                </div>
-            </h3>
-            <br/>
-            <button onclick="goBack()">뒤로가기</button>
-
-            <hr/>
-            <br/>
-            <div class="post">
-                <h3>Comments</h3>
-                <form method="post" action="/another-class/comment/createComment">
-                    <label for="content">댓글:</label>
-                    <textarea id="content" name="content" required></textarea>
-                    <input type="hidden" name="user_id" value="<%= user.getId() %>">
-                    <input type="hidden" name="post_id" value="<%= postDto.getPostId() %>">
-                    <input type="hidden" name="boardType" value="<%= boardType %>">
-                    <button type="submit">제출</button>
-                </form>
-                <div class="comments">
-                    <c:forEach var="commentDto" items="${commentDto}">
-                        <div class="comment">
-                            <div class="comment-author">${commentDto.author}</div>
-                            <div class="comment-content">${commentDto.content}</div>
-                            <div class="comment-time">${commentDto.postTime}</div>
+                <section id="banner">
+                    <div class="content">
+                        <header>
+                            <h1><%= postDto.getTitle() %><br/>
+                            </h1>
+                            <span class="post-author">Author: <%= postDto.getAuthor() %></span>
+                            <span class="post-time">Post Time: <%= postDto.getPostTime() %></span>
+                        </header>
+                        <br/>
+                        <br/>
+                        <div class="box">
+                            <h2><%= postDto.getContent().replaceAll("\n", "<br/>") %></h2>
                         </div>
-                        <hr/>
-                    </c:forEach>
-                </div>
+                    </div>
+                    <button onclick="goBack()">뒤로가기</button>
+                </section>
+
+                <section>
+                    <h3>Comments</h3>
+                    <form method="post" action="/another-class/comment/createComment">
+                        <label for="content">댓글:</label>
+                        <textarea id="content" name="content" required></textarea>
+                        <input type="hidden" name="user_id" value="<%= user.getId() %>">
+                        <input type="hidden" name="post_id" value="<%= postDto.getPostId() %>">
+                        <input type="hidden" name="boardType" value="<%= boardType %>">
+                        <br/>
+                        <button type="submit">제출</button>
+                    </form>
+                    <div class="comments">
+                        <c:forEach var="commentDto" items="${commentDto}">
+                            <div class="comment">
+                                <div class="comment-author">${commentDto.author}</div>
+                                <div class="comment-content">${commentDto.content}</div>
+                                <div class="comment-time">${commentDto.postTime}</div>
+                            </div>
+                            <hr/>
+                        </c:forEach>
+                    </div>
+                </section>
             </div>
+        </div>
 
-
-            <br/>
+        <div id="sidebar">
+            <div class="inner">
+                <nav id="menu">
+                    <header class="major">
+                        <h2>Menu</h2>
+                    </header>
+                    <ul>
+                        <li><a href='<%= "/another-class/lecture/" + classId + "/attend" %>'>출석</a></li>
+                        <li><a href='<%= "/another-class/lecture/" + classId + "/plan" %>'>강의 계획</a></li>
+                        <li>
+                            <span class="opener">커뮤니티</span>
+                            <ul>
+                                <li><a href='<%= "/another-class/lecture/" + classId + "/community/material" %>'>수업자료</a></li>
+                                <li><a href='<%= "/another-class/lecture/" + classId + "/community/notice" %>'>공지방</a></li>
+                                <li><a href='<%= "/another-class/lecture/" + classId + "/community/talk" %>'>수다방</a></li>
+                                <li><a href='<%= "/another-class/lecture/" + classId + "/community/task" %>'>과제방</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/another-class/post/main">강의 목록</a></li>
+                        <% if(user.isAdmin()){%>
+                        <li>
+                            <span class="opener">관리</span>
+                            <ul>
+                                <li><a href='<%= "/another-class/lecture/" + classId + "/manage" %>'>일반관리</a></li>
+                                <li><a href='<%= "/another-class/lecture/" + classId + "/registerManage" %>'>등록관리</a></li>
+                                <li><a href='<%= "/another-class/lecture/" + classId + "/attendManage" %>'>출석관리</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/another-class/mypage" >마이페이지</a></li>
+                        <%}%>
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
-
 </body>
 </html>

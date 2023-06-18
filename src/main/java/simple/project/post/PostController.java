@@ -1,11 +1,9 @@
 package simple.project.post;
 
-import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +14,10 @@ import simple.project.comment.CommentService;
 import simple.project.course.Course;
 import simple.project.course.CourseController;
 import simple.project.course.CourseService;
-import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,16 +30,14 @@ public class PostController {
     private final CourseService courseService;
     private final CommentService commentService;
     private final UserService userService;
-    private final JWToken jwToken;
 
 
     @Autowired
-    public PostController(PostService postService, CourseService courseService, CommentService commentService, UserService userService, JWToken jwToken) {
+    public PostController(PostService postService, CourseService courseService, CommentService commentService, UserService userService) {
         this.postService = postService;
         this.courseService = courseService;
         this.commentService = commentService;
         this.userService = userService;
-        this.jwToken = jwToken;
     }
 
     @RequestMapping("/classMain")
@@ -76,33 +70,23 @@ public class PostController {
 
     @RequestMapping("/{postId}")
     public String noticePage(
-            HttpSession session,
+            HttpServletRequest request,
             @PathVariable("postId") int postId,
             @RequestParam("boardType") String boardtype,
             Model model
     ) {
-        String token = (String) session.getAttribute("token");
-        if(token==null){
-            return "index";
-        }
+        User user = (User) request.getAttribute("user");
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
-            if (user == null){
-                return "index";
-            }
             HashMap<String, Integer> boardMapper = new HashMap<>();
             boardMapper.put("NOTICE", 1);
             boardMapper.put("ASSIGNMENT", 2);
             boardMapper.put("MATERIAL", 3);
             boardMapper.put("CHAT", 4);
-
             List<Post> posts = postService.getPosts(boardMapper.get(boardtype));
             List<Comment> comments = commentService.getComments(postId);
+            int courseId = postService.getCourseId(postId);
             List<User> users = userService.findAllUser();
-            List<PostDto> postDtos = new ArrayList<>();
             List<CommentDto> commentDtos = new ArrayList<>();
-
             for (Post post : posts) {
                 PostDto postDto = new PostDto(post.getTitle(), post.getContent(), post.getPostTime(), postId);
                 User author = getUserById(users, post.getUserId());
@@ -112,7 +96,6 @@ public class PostController {
                 if (post.getId() == postId)
                     model.addAttribute("postDto", postDto);
             }
-
             for (Comment comment : comments) {
                 CommentDto commentDto = new CommentDto(comment.getContent(), comment.getPostTime());
                 User author = getUserById(users, comment.getAuthorId());
@@ -121,16 +104,14 @@ public class PostController {
                 }
                 commentDtos.add(commentDto);
             }
-
             model.addAttribute("commentDto", commentDtos);
             model.addAttribute("user", user);
             model.addAttribute("boardType", boardtype);
-
+            model.addAttribute("classId", courseId);
         } catch (Exception e){
             e.printStackTrace();
             return "index";
         }
-
         return "class/subCommunity";
     }
 
