@@ -27,5 +27,14 @@ public class AttendanceService {
     public HashMap<Integer, String> attendUserToday(int courseId){
         return attendanceRepository.getAtendTime(courseId);
     }
+    public List<Integer> findUserIdBycourseIdToday(int courseId){
+        List<Attendance> attendanceList = attendanceRepository.findAttendanceByCourseIdToday(courseId);
+        List<Integer> userIds = new ArrayList<>();
+        for (Attendance attendance :
+                attendanceList) {
+            userIds.add(attendance.getUserId());
+        }
+        return userIds;
+    }
 
 }
