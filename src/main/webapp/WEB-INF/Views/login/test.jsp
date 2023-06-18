@@ -6,54 +6,42 @@
 %>
 <html>
 <head>
-    <title>User List</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-        .button {
-            margin-top: 20px;
-            background-color: #4CAF50; /* Green */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-        }
-    </style>
+    <title>Sign up</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/another-class/class/assets/css/main.css" />
 </head>
-<body>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Email</th>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% for (User user : userList) { %>
-    <tr onclick="goToUserDetail('<%= user.getId() %>')">
-        <td><%= user.getId() %></td>
-        <td><%= user.getEmail() %></td>
-        <td><%= user.getName() %></td>
-    </tr>
-    <% } %>
-    </tbody>
-</table>
-<button class="button" onclick="insertTest1()">선생 계정 생성</button>
-<button class="button" onclick="insertTest2()">학생 계정 생성</button>
+<body class="is-preload">
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <section>
+                    <div class="table-wrapper">
+                        <table class="alt">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Name</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for (User user : userList) { %>
+                            <tr onclick="goToUserDetail('<%= user.getId() %>')">
+                                <td><%= user.getId() %></td>
+                                <td><%= user.getEmail() %></td>
+                                <td><%= user.getName() %></td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="button" onclick="insertTest1()">선생 계정 생성</button>
+                    <button class="button" onclick="insertTest2()">학생 계정 생성</button>
+                </section>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
     function goToUserDetail(userId) {

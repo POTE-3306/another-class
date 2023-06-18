@@ -9,10 +9,8 @@ import simple.project.user.User;
 
 import java.security.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class AttendanceRepository {
@@ -109,7 +107,7 @@ public class AttendanceRepository {
                 "where course_id = ?\n" +
                 "  AND DATE(Attendances.attendance_time) = curdate()";
         System.out.println(1);
-        List<Attendance> rows = jdbcTemplate.query(sql,rowMapper(), courseId);
+        List<Attendance> rows = jdbcTemplate.query(sql, getRowMapper(), courseId);
         System.out.println("rows size: " + rows.size());
         HashMap<Integer, String> map = new HashMap<>();
         for (Attendance row : rows) {
