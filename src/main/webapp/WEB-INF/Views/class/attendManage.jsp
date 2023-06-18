@@ -1,11 +1,15 @@
 <%@ page import="simple.project.user.User" %>
-<%@ page import="simple.project.course.Course" %>
+<%@ page import="java.util.List" %>
+<%@ page import="simple.project.lecture.AtendUserDto" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.time.LocalDateTime" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
     User user = (User) request.getAttribute("user");
-    Course course = (Course) request.getAttribute("course");
-    int classId = course.getId();
+    List<AtendUserDto> attendList = (List<AtendUserDto>) request.getAttribute("attendUserDtos");
+    HashMap<Integer, LocalDateTime> todayAttend = (HashMap<Integer, LocalDateTime>) request.getAttribute("todayAttend");
+    int classId = (int) request.getAttribute("classId");
 %>
 
 <html>
@@ -22,19 +26,39 @@
             <header id="header">
                 <a href='<%= "/another-class/lecture/" + classId %>' class="logo"><strong>CLASS</strong></a>
             </header>
-            <section id="banner">
-                <div class="content">
-                    <header>
-                        <h1> 강의명 : <%= course.getName()%>
-                        </h1>
-                        <p>강의설명: <%= course.getDescription() %>
-                        </p>
-                        <p>강의코드: <%= course.getUuid() %>
-                        </p>
-                    </header>
-                    <ul class="actions">
-                        <li><a href='<%= "/another-class/lecture/" + classId + "/modify" %>' class="button big">수정</a></li>
-                    </ul>
+            <section>
+                <div>
+                    <h1>출결관리</h1>
+                    <h3>수강 중인 학생</h3>
+                    <div class="table-wrapper">
+                        <table class="alt">
+                            <thead>
+                            <tr>
+                                <th>RegId</th>
+                                <th>수강과목ID</th>
+                                <th>학생ID</th>
+                                <th>학생이름</th>
+                                <th>금일출석여부</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for (AtendUserDto student : attendList) { %>
+                            <tr>
+                                <td><%= student.getId() %>
+                                </td>
+                                <td><%= student.getCourseId() %>
+                                </td>
+                                <td><%= student.getUserId() %>
+                                </td>
+                                <td><%= student.getName() %>
+                                </td>
+                                <td><%= (todayAttend.get(student.getUserId()) == null) ? "X" : todayAttend.get(student.getUserId()) %>
+                                </td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </div>

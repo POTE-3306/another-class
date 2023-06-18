@@ -1,11 +1,12 @@
 <%@ page import="simple.project.user.User" %>
-<%@ page import="simple.project.course.Course" %>
+<%@ page import="simple.project.lecture.RegisterWaiting" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
     User user = (User) request.getAttribute("user");
-    Course course = (Course) request.getAttribute("course");
-    int classId = course.getId();
+    int classId = (int) request.getAttribute("classId");
+    List<RegisterWaiting> waitingList = (List<RegisterWaiting>) request.getAttribute("waitingList");
 %>
 
 <html>
@@ -22,19 +23,41 @@
             <header id="header">
                 <a href='<%= "/another-class/lecture/" + classId %>' class="logo"><strong>CLASS</strong></a>
             </header>
-            <section id="banner">
-                <div class="content">
-                    <header>
-                        <h1> 강의명 : <%= course.getName()%>
-                        </h1>
-                        <p>강의설명: <%= course.getDescription() %>
-                        </p>
-                        <p>강의코드: <%= course.getUuid() %>
-                        </p>
-                    </header>
-                    <ul class="actions">
-                        <li><a href='<%= "/another-class/lecture/" + classId + "/modify" %>' class="button big">수정</a></li>
-                    </ul>
+            <section>
+                <div>
+                    <h1>가입승인</h1>
+                    <br/>
+                    <div class="table-wrapper">
+                        <table class="alt">
+                            <thead>
+                            <tr>
+                                <th>RegId</th>
+                                <th>학생ID</th>
+                                <th>학생이름</th>
+                                <th>수락</th>
+                                <th>거절</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for (RegisterWaiting waiting : waitingList) { %>
+                            <tr>
+                                <td><%= waiting.getRegId() %>
+                                </td>
+                                <td><%= waiting.getUserId() %>
+                                </td>
+                                <td><%= waiting.getUserName() %>
+                                </td>
+                                <td>
+                                    <a href="<%= String.format("/another-class/lecture/%d/accept?regId=%d", classId, waiting.getRegId()) %>">수락</a>
+                                </td>
+                                <td>
+                                    <a href="<%= String.format("/another-class/lecture/%d/reject?regId=%d", classId, waiting.getRegId()) %>">거절</a>
+                                </td>
+                            </tr>
+                            <% } %>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </div>
@@ -69,8 +92,7 @@
                             <li><a href='<%= "/another-class/lecture/" + classId + "/attendManage" %>'>출석관리</a></li>
                         </ul>
                     </li>
-                    <li><a href="/another-class/mypage" >마이페이지</a></li>
-                    <% } %>
+                    <li><a href="/another-class/mypage" >마이페이지</a></li>                    <% } %>
                 </ul>
             </nav>
         </div>
