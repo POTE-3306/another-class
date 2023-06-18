@@ -1,8 +1,12 @@
 package simple.project.attendance;
+import com.mysql.cj.result.Row;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,4 +49,30 @@ public class AttendanceRepository {
 
         return attendanceMap;
     }
+    public HashMap<Integer, String> getAtendTime(int courseId){
+        String sql = "select *\n" +
+                "from Attendances\n" +
+                "where course_id = ?\n" +
+                "  AND DATE(Attendances.attendance_time) = curdate()";
+        System.out.println(1);
+        List<Attendance> rows = jdbcTemplate.query(sql,rowMapper(), courseId);
+        System.out.println("rows size: " + rows.size());
+        HashMap<Integer, String> map = new HashMap<>();
+        for (Attendance row : rows) {
+            System.out.println(2);
+            map.put(row.getUserId(), row.getAttendanceTime().toString());
+            System.out.println("map size : " + map.size());
+        }
+        return map;
+    }
+
+    private RowMapper<Attendance> rowMapper(){
+        return (((rs, rowNum) -> new Attendance(
+                rs.getInt("id"),
+                rs.getInt("user_id"),
+                rs.getInt("course_id"),
+                rs.getTimestamp("attendance_time").toLocalDateTime()
+        )));
+    }
+
 }

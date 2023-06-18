@@ -29,5 +29,8 @@ public class RegistrationService {
     }
     public void updateReg(int regId){registrationRepository.updateReg(regId);}
     public void deleteReg(int regId){registrationRepository.deleteReg(regId);}
+    public List<Registration> findAttendListByCourseId(int courseId){
+        return registrationRepository.findAttendListByCourseId(courseId);
+    }
 
 }

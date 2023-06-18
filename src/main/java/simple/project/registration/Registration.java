@@ -45,4 +45,13 @@ public class Registration {
         isApproved = approved;
     }
 
+    @Override
+    public String toString() {
+        return "Registration{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", courseId=" + courseId +
+                ", isApproved=" + isApproved +
+                '}';
+    }
 }

@@ -4,59 +4,59 @@ import java.time.LocalDateTime;
 
 public class Attendance {
     int id;
-    int postId;
-    int authorId;
-    String content;
-    LocalDateTime commentTime;
+    int userId;
+    int courseId;
+    LocalDateTime attendanceTime;
 
-    public Attendance() {
-    }
-
-    public Attendance(int id, int postId, int authorId, String content, LocalDateTime commentTime) {
-        this.id = id;
-        this.postId = postId;
-        this.authorId = authorId;
-        this.content = content;
-        this.commentTime = commentTime;
-    }
-
-    public int getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Attendance{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", courseId=" + courseId +
+                ", attendanceTime=" + attendanceTime +
+                '}';
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public int getPostId() {
-        return postId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setPostId(int postId) {
-        this.postId = postId;
+    public void setCourseId(int courseId) {
+        this.courseId = courseId;
     }
 
-    public int getAuthorId() {
-        return authorId;
+    public void setAttendanceTime(LocalDateTime attendanceTime) {
+        this.attendanceTime = attendanceTime;
     }
 
-    public void setAuthorId(int authorId) {
-        this.authorId = authorId;
+    public int getId() {
+        return id;
     }
 
-    public String getContent() {
-        return content;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public int getCourseId() {
+        return courseId;
     }
 
-    public LocalDateTime getCommentTime() {
-        return commentTime;
+    public LocalDateTime getAttendanceTime() {
+        return attendanceTime;
     }
 
-    public void setCommentTime(LocalDateTime commentTime) {
-        this.commentTime = commentTime;
+    public Attendance(int id, int userId, int courseId, LocalDateTime attendanceTime) {
+        this.id = id;
+        this.userId = userId;
+        this.courseId = courseId;
+        this.attendanceTime = attendanceTime;
+    }
+
+    public Attendance() {
     }
 }

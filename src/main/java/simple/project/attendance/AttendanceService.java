@@ -2,6 +2,7 @@ package simple.project.attendance;
 
 import org.springframework.stereotype.Service;
 
+import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,4 +17,9 @@ public class AttendanceService {
     public HashMap<Integer, ArrayList<String>> findAllAttendance(int courseId){
         return attendanceRepository.findAllAttendance(courseId);
     }
+
+    public HashMap<Integer, String> attendUserToday(int courseId){
+        return attendanceRepository.getAtendTime(courseId);
+    }
+
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import simple.project.attendance.AttendanceService;
 import simple.project.config.SessionInterceptor;
 import simple.project.courseplan.CoursePlan;
 import simple.project.courseplan.CoursePlanService;
@@ -19,6 +20,8 @@ import simple.project.user.User;
 import simple.project.user.UserService;
 
 import javax.servlet.http.HttpSession;
+import java.security.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,15 +38,17 @@ public class lectureController {
     private final CourseService courseService;
     private final PostService postService;
     private final RegistrationService registrationService;
+    private final AttendanceService attendanceService;
 
     @Autowired
-    public lectureController(JWToken jwToken, UserService userService, CoursePlanService coursePlanService, CourseService courseService, PostService postService, RegistrationService registrationService) {
+    public lectureController(JWToken jwToken, UserService userService, CoursePlanService coursePlanService, CourseService courseService, PostService postService, RegistrationService registrationService, AttendanceService attendanceService) {
         this.jwToken = jwToken;
         this.userService = userService;
         this.coursePlanService = coursePlanService;
         this.courseService = courseService;
         this.postService = postService;
         this.registrationService = registrationService;
+        this.attendanceService = attendanceService;
     }
 
     private User getUserById(List<User> users, int userId) {
@@ -264,6 +269,24 @@ public class lectureController {
             System.out.println(waitingList);
             model.addAttribute("waitingList", waitingList);
 
+            List<Registration> attendList = registrationService.findAttendListByCourseId(course.getId());
+            List<AtendUserDto> atendUserDtos = new ArrayList<>();
+            System.out.println("attendList size : " + attendList.size());
+            for (Registration registration : attendList) {
+                User student = getUserById(users, registration.getUserId());
+                AtendUserDto audto = new AtendUserDto();
+                if(student != null){
+                    audto.setUserId(student.getId());
+                    audto.setName(student.getName());
+                }
+                audto.setCourseId(course.getId());
+                audto.setId(registration.getId());
+                System.out.println(audto);
+                atendUserDtos.add(audto);
+            }
+            model.addAttribute("attendUserDtos",atendUserDtos);
+            HashMap<Integer, String > attendUserToday = attendanceService.attendUserToday(course.getId());
+            model.addAttribute("todayAttend", attendUserToday);
         } catch (Exception e){
             e.printStackTrace();
             return "index";
