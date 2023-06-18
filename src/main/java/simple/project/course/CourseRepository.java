@@ -94,4 +94,9 @@ public class CourseRepository {
         });
     }
 
+    public Integer getCountDays(int course_id){
+        String sql = "select lecture_days from Courses where id = ?";
+        Integer days = jdbcTemplate.queryForObject(sql, new Object[]{course_id}, Integer.class);
+        return (days != null) ? days : 0; // 나중에 나눌때 divided zero exception 처리
+    }
 }

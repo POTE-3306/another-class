@@ -10,6 +10,7 @@
     List<AtendUserDto> attendList = (List<AtendUserDto>) request.getAttribute("attendUserDtos");
     HashMap<Integer, LocalDateTime> todayAttend = (HashMap<Integer, LocalDateTime>) request.getAttribute("todayAttend");
     int classId = (int) request.getAttribute("classId");
+    HashMap<Integer, Integer> atendRateMap = (HashMap<Integer, Integer>) request.getAttribute("rate");
 %>
 
 <html>
@@ -39,6 +40,7 @@
                                 <th>학생ID</th>
                                 <th>학생이름</th>
                                 <th>금일출석여부</th>
+                                <th>출석률</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -53,6 +55,8 @@
                                 <td><%= student.getName() %>
                                 </td>
                                 <td><%= (todayAttend.get(student.getUserId()) == null) ? "X" : todayAttend.get(student.getUserId()) %>
+                                </td>
+                                <td><%= (atendRateMap.get(student.getUserId()) == null) ? "0" : atendRateMap.get(student.getUserId()) %>%
                                 </td>
                             </tr>
                             <% } %>

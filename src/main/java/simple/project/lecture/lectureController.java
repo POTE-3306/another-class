@@ -303,6 +303,12 @@ public class lectureController {
             HashMap<Integer, String> attendUserToday = attendanceService.attendUserToday(classId);
             model.addAttribute("todayAttend", attendUserToday);
             model.addAttribute("classId", classId);
+            HashMap<Integer, Integer> atendRateMap = new HashMap<>();
+            for (User user1 : users) {
+                Integer rate = attendanceService.atendRate(classId, user1.getId());
+                atendRateMap.put(user1.getId(), rate);
+            }
+            model.addAttribute("rate", atendRateMap);
         } catch (Exception e) {
             e.printStackTrace();
             return "index";

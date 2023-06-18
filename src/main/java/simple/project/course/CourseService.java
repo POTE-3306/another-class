@@ -85,4 +85,7 @@ public class CourseService {
     public LocalDateTime getLimitTimeById(int courseId){
         return courseRepository.findLimitTimeById(courseId);
     }
+    public Integer getDays(int courseId){
+        return courseRepository.getCountDays(courseId);
+    }
 }

@@ -117,5 +117,9 @@ public class AttendanceRepository {
         }
         return map;
     }
-
+    public Integer getAtendDays(int course_id, int user_id){
+        String sql = "select count(user_id) From attendances where course_id = ? and user_id = ?";
+        Integer days = jdbcTemplate.queryForObject(sql, new Object[]{course_id, user_id}, Integer.class);
+        return (days != null) ? days : 0;
+    }
 }
