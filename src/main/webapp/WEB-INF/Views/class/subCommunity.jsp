@@ -1,4 +1,4 @@
-`<%@ page import="simple.project.post.PostDto" %>
+<%@ page import="simple.project.post.PostDto" %>
 <%@ page import="simple.project.user.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -10,11 +10,16 @@
 %>
 <html>
 <head>
+    <script>
+        function goBack() {
+            window.history.back(); // 뒤로가기 기능 실행
+        }
+    </script>
     <title>Community</title>
 </head>
 <body>
 <h1>Community</h1>
-
+<button onclick="goBack()">뒤로가기</button>
 <table>
     <thead>
     <tr>
