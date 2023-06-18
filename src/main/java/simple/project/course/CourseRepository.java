@@ -67,7 +67,7 @@ public class CourseRepository {
     }
 
     public Course getCourseById(int courseId) {
-        String sql = String.format("SELECT * FROM Courses WHERE id = %d", courseId);
+        String sql = String.format("SELECT * FROM Courses WHERE id = %d order by id desc", courseId);
         List<Course> courses = jdbcTemplate.query(sql, getRowMapper());
         if (courses.isEmpty()) {
             return null; // 결과가 없을 경우 null을 반환하거나 적절한 처리를 수행하세요.
