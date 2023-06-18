@@ -16,4 +16,8 @@ public class CommentService {
     public List<Comment> getComments(int postId){
         return commentRepository.findByPostId(postId);
     }
+
+    public void insertComment(Integer postId, Integer author_id, String content){
+        commentRepository.insertComment(postId, author_id, content);
+    }
 }
