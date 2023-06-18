@@ -122,7 +122,15 @@
                     </li>
                     <li><a href="/another-class/post/main">강의 목록</a></li>
                     <% if(user.isAdmin()){%>
-                    <li><a href='<%= "/another-class/lecture/" + classId + "/manage" %>'>관리</a></li>
+                    <li>
+                        <span class="opener">관리</span>
+                        <ul>
+                            <li><a href='<%= "/another-class/lecture/" + classId + "/manage" %>'>일반관리</a></li>
+                            <li><a href='<%= "/another-class/lecture/" + classId + "/registerManage" %>'>등록관리</a></li>
+                            <li><a href='<%= "/another-class/lecture/" + classId + "/attendManage" %>'>출석관리</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/another-class/mypage" >마이페이지</a></li>
                     <%}%>
                 </ul>
             </nav>

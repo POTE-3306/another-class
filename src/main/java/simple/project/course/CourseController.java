@@ -81,6 +81,22 @@ public class CourseController {
         return "class/makeCoursePlan";
     }
 
+    @PostMapping("/course/modify-class")
+    public String modifyClass(
+            HttpServletRequest request,
+            @RequestParam("title") String title,
+            @RequestParam("content") String content,
+            @RequestParam("courseId") String courseId,
+            Model model
+    ) {
+        User user = (User) request.getAttribute("user");
+        if (!user.isAdmin()) {
+            return "index";
+        }
+        courseService.modifyClass(courseId, title, content);
+        return "redirect:/lecture/" + courseId + "/manage";
+    }
+
 
     @GetMapping("/course/makeCoursePlan/{courseId}")
     public String makeCoursePlan(@PathVariable int courseId, Model model) {
