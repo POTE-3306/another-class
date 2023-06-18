@@ -53,13 +53,15 @@ public class AttendacneController {
             @PathVariable("classId") int classId
     ){
         User user = (User) request.getAttribute("user");
+        Course course = courseService.getCourseById(classId);
         try {
             if (user.isAdmin()){
                 courseService.insertCode(code, classId);
             } else {
                 LocalDateTime currTime = LocalDateTime.now();
+                System.out.println(code + "" + course.getCode() + code.equals(course.getCode()));
                 LocalDateTime limitTime = courseService.getLimitTimeById(classId);
-                if (!currTime.isAfter(limitTime)) {
+                if (!currTime.isAfter(limitTime) && (Integer.parseInt(code) == course.getCode())) {
                     attendanceService.updateAttendence(classId, user.getId());
                 }
             }
