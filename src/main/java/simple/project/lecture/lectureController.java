@@ -416,7 +416,6 @@ public class lectureController {
             pageTypeMapper.put(2, "task");
             pageTypeMapper.put(3, "talk");
             pageTypeMapper.put(4, "material");
-
             postService.insertPost(Integer.parseInt(classId), user.getId(), title, content, pageType);
 
 
