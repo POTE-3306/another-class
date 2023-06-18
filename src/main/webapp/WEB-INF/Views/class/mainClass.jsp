@@ -47,7 +47,6 @@
                     <ul>
                         <li><a href='<%= "/another-class/lecture/" + classId + "/attend" %>'>출석</a></li>
                         <li><a href='<%= "/another-class/lecture/" + classId + "/plan" %>'>강의 계획</a></li>
-                        <li><a href="#">넣어주세요.</a></li>
                         <li>
                             <span class="opener">커뮤니티</span>
                             <ul>
