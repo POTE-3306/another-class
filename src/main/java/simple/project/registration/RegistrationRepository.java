@@ -34,7 +34,7 @@ public class RegistrationRepository {
     }
 
     public void register(int userId, int courseId) {
-        jdbcTemplate.update("INSERT INTO Registrations (user_id, course_id) VALUES (?, ?)", userId, courseId);
+        jdbcTemplate.update("INSERT INTO Registrations (user_id, course_id, is_approved) VALUES (?, ?,?)", userId, courseId,0);
     }
 
     public void adminRegister(int userId, int courseId) {
