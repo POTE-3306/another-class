@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,5 +97,15 @@ public class PostRepository {
         String sql = "SELECT * FROM Posts WHERE board_type = ?";
         List<Post> postList = jdbcTemplate.query(sql, getRowMapper(), boardType);
         return postList;
+    }
+
+    public void insertPost(int course_id, int author_id, String title, String content, int boardType){
+        String sql="INSERT INTO Posts (course_id, author_id, title, content, post_time, board_type)\n" +
+                "VALUES (?, ?, ?, ?, ?,?)";
+        System.out.println("insertPost call " );
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        System.out.println("timestamp call");
+        jdbcTemplate.update(sql,course_id,author_id,title,content,currentTime ,boardType);
+        System.out.println("query excute");
     }
 }

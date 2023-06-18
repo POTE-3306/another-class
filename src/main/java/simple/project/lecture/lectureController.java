@@ -26,6 +26,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import simple.project.course.Course;
 import simple.project.course.CourseService;
 import simple.project.post.PostService;
@@ -61,14 +62,14 @@ public class lectureController {
             HttpServletRequest request,
             Model model,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         User user = (User) request.getAttribute("user");
         try {
             Course course = courseService.getCourseById(Integer.parseInt(classId));
             model.addAttribute("user", user);
             model.addAttribute("course", course);
             model.addAttribute("classId", classId);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
@@ -80,7 +81,7 @@ public class lectureController {
             HttpSession session,
             Model model,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         String token = (String) session.getAttribute("token");
         if (token == null) {
             return "index";
@@ -94,18 +95,19 @@ public class lectureController {
             }
             model.addAttribute("user", user);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
         return String.format("redirect:/lecture/%s/community/notice", classId);
     }
+
     @RequestMapping("{class_id}/community/notice")
     public String communityNoticePage(
             HttpSession session,
             Model model,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         String token = (String) session.getAttribute("token");
         Integer pageType = 1;
         if (token == null) {
@@ -122,20 +124,21 @@ public class lectureController {
             model.addAttribute("user", user);
             model.addAttribute("postList", postList);
             model.addAttribute("classId", classId);
-            model.addAttribute("pageType",pageType);
+            model.addAttribute("pageType", pageType);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
         return "class/community";
     }
+
     @RequestMapping("{class_id}/community/task")
     public String communityTaskPage(
             HttpSession session,
             Model model,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         String token = (String) session.getAttribute("token");
         Integer pageType = 2;
         if (token == null) {
@@ -151,20 +154,21 @@ public class lectureController {
             model.addAttribute("user", user);
             model.addAttribute("postList", postList);
             model.addAttribute("classId", classId);
-            model.addAttribute("pageType",pageType);
+            model.addAttribute("pageType", pageType);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
         return "class/community";
     }
+
     @RequestMapping("{class_id}/community/talk")
     public String communityTalkPage(
             HttpSession session,
             Model model,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         String token = (String) session.getAttribute("token");
         Integer pageType = 4;
         if (token == null) {
@@ -181,20 +185,21 @@ public class lectureController {
             model.addAttribute("user", user);
             model.addAttribute("postList", postList);
             model.addAttribute("classId", classId);
-            model.addAttribute("pageType",pageType);
+            model.addAttribute("pageType", pageType);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
         return "class/community";
     }
+
     @RequestMapping("{class_id}/community/material")
     public String communityProgressPage(
             HttpSession session,
             Model model,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         String token = (String) session.getAttribute("token");
         Integer pageType = 3;
         if (token == null) {
@@ -211,20 +216,21 @@ public class lectureController {
             model.addAttribute("user", user);
             model.addAttribute("postList", postList);
             model.addAttribute("classId", classId);
-            model.addAttribute("pageType",pageType);
+            model.addAttribute("pageType", pageType);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
         return "class/community";
     }
+
     @RequestMapping("{class_id}/manage")
     public String attendPage(
             HttpSession session,
             Model model,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         String token = (String) session.getAttribute("token");
         if (token == null) {
             return "index";
@@ -263,7 +269,7 @@ public class lectureController {
             for (Registration registration : attendList) {
                 User student = getUserById(users, registration.getUserId());
                 AtendUserDto audto = new AtendUserDto();
-                if(student != null){
+                if (student != null) {
                     audto.setUserId(student.getId());
                     audto.setName(student.getName());
                 }
@@ -272,10 +278,10 @@ public class lectureController {
                 System.out.println(audto);
                 atendUserDtos.add(audto);
             }
-            model.addAttribute("attendUserDtos",atendUserDtos);
-            HashMap<Integer, String > attendUserToday = attendanceService.attendUserToday(course.getId());
+            model.addAttribute("attendUserDtos", atendUserDtos);
+            HashMap<Integer, String> attendUserToday = attendanceService.attendUserToday(course.getId());
             model.addAttribute("todayAttend", attendUserToday);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
@@ -345,7 +351,7 @@ public class lectureController {
     public String rejcetReg(
             @RequestParam("regId") int regId,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         registrationService.deleteReg(regId);
         return String.format("redirect:/lecture/%s/manage", classId);
     }
@@ -355,7 +361,7 @@ public class lectureController {
             HttpSession session,
             Model model,
             @PathVariable("class_id") String classId
-    ){
+    ) {
         String token = (String) session.getAttribute("token");
         if (token == null) {
             return "index";
@@ -371,10 +377,62 @@ public class lectureController {
             model.addAttribute("user", user);
             model.addAttribute("course", course);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
         return "class/manage";
+    }
+
+    @RequestMapping("{class_id}/community/create-post")
+    public String createPostPage(@RequestParam("pageType") Integer pageType,
+                                 @PathVariable("class_id") String classId,
+                                 Model model) {
+        System.out.println("page type :  " + pageType);
+        System.out.println("class id : " + classId);
+        model.addAttribute("classId", classId);
+        model.addAttribute("pageType", pageType);
+        return "class/makePost";
+    }
+
+    @RequestMapping("{class_id}/community/insert-post")
+    public String insertPage(@PathVariable("class_id") String classId,
+                             @RequestParam("pageType") Integer pageType,
+                             @RequestParam("title") String title,
+                             @RequestParam("content") String content,
+                             HttpSession session,
+                             Model model) {
+        HashMap<Integer, String> pageTypeMapper = new HashMap<>();
+
+        String token = (String) session.getAttribute("token");
+        if (token == null) {
+            return "index";
+        }
+        try {
+            Claims claims = jwToken.getClaims(token);
+            User user = userService.getUserByToken(claims);
+            Course course = courseService.getCourseById(Integer.parseInt(classId));
+
+            if (user == null) {
+                return "index";
+            }
+            model.addAttribute("user", user);
+            model.addAttribute("course", course);
+
+            System.out.println("call insert");
+            System.out.println("pageType : " + pageType);
+            pageTypeMapper.put(1, "notice");
+            pageTypeMapper.put(2, "task");
+            pageTypeMapper.put(3, "talk");
+            pageTypeMapper.put(4, "material");
+
+            postService.insertPost(Integer.parseInt(classId), user.getId(), title, content, pageType);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "index";
+        }
+        return String.format("redirect:/lecture/%s/community/%s", classId, pageTypeMapper.get(pageType));
     }
 }

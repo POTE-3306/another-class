@@ -32,4 +32,7 @@ public class PostService {
     public List<Post> getByClassIdAndBoardType(int classId, int boardType){
         return postRepository.findByClassIdAndBoardType(classId, boardType);
     }
+    public void insertPost(int course_id, int author_id, String title, String content, int boardType){
+        postRepository.insertPost(course_id,author_id,title,content,boardType);
+    }
 }

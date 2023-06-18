@@ -35,33 +35,31 @@
     <ul>
         <% if (pageType == 1) {%>
         <li>
-            <a href="#">
-                <button type="button">공지생성</button>
+            <a href=<%= String.format("create-post?pageType=%d",pageType)%>>
+                <button type="button">공지 생성</button>
             </a>
         </li>
         <% } else if (pageType == 2) { %>
         <li>
-            <a href="#">
+            <a href=<%= String.format("create-post?pageType=%d",pageType)%>>
                 <button type="button">과제 생성</button>
             </a>
         </li>
         <% } else if (pageType == 3) { %>
         <li>
-            <a href="#">
-                <button type="button">수업 자료 생성</button>
+            <a href=<%= String.format("create-post?pageType=%d",pageType)%>>
+            <button type="button">수업 자료 생성</button>
             </a>
         </li>
         <% } %>
-
     </ul>
-
     <%
     }
         if (pageType == 4) {
     %>
     <ul>
         <li>
-            <a href="#">
+            <a href=<%= String.format("create-post?pageType=%d",pageType)%>>
                 <button type="button">수다방 방 생성</button>
             </a>
         </li>
