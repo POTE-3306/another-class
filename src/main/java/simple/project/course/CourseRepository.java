@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import simple.project.user.User;
 
 import java.util.UUID;
 
@@ -73,5 +74,18 @@ public class CourseRepository {
         } else {
             return courses.get(0); // 결과가 있다면 첫 번째 레코드를 반환하도록 처리하세요.
         }
+    }
+    public void insertCode(String code, int courseId){
+        String query = String.format("UPDATE Courses SET code = %s, limit_time=now()+INTERVAL 5 MINUTE, lecture_days=lecture_days+1 WHERE id=%d", code, courseId);
+        jdbcTemplate.update(query);
+    }
+    public LocalDateTime findLimitTimeById(int courseId) {
+        String query = "select limit_time from Courses where id=?";
+        return jdbcTemplate.queryForObject(query, new Object[]{courseId}, new RowMapper<LocalDateTime>() {
+            @Override
+            public LocalDateTime mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return rs.getObject("limit_time", LocalDateTime.class);
+            }
+        });
     }
 }
