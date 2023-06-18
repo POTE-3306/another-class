@@ -19,6 +19,7 @@ import simple.project.user.JWToken;
 import simple.project.user.User;
 import simple.project.user.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Timestamp;
 import java.time.LocalDateTime;
@@ -57,29 +58,16 @@ public class lectureController {
 
     @RequestMapping("{class_id}")
     public String mainClass(
-            HttpSession session,
+            HttpServletRequest request,
             Model model,
             @PathVariable("class_id") String classId
     ){
-        String token = (String) session.getAttribute("token");
-        if (token == null) {
-            return "index";
-        }
+        User user = (User) request.getAttribute("user");
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
             Course course = courseService.getCourseById(Integer.parseInt(classId));
-            CoursePlan coursePlan = coursePlanService.getByCourseId(Integer.parseInt(classId));
-            ArrayList<Integer> postIds = postService.getPostsByAuthor(user.getId());
-            List<HashMap<Integer, ArrayList<String>>> postList = postService.getPostList(postIds);
-            if (user == null) {
-                return "index";
-            }
             model.addAttribute("user", user);
             model.addAttribute("course", course);
-            model.addAttribute("coursePlan", coursePlan);
             model.addAttribute("classId", classId);
-            model.addAttribute("postInfoList", postList);
         } catch (Exception e){
             e.printStackTrace();
             return "index";

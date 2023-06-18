@@ -1,10 +1,13 @@
 <%@ page import="simple.project.user.User" %>
 <%@ page import="simple.project.course.Course" %>
+<%@ page import="simple.project.courseplan.CoursePlan" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String classId = (String) request.getAttribute("classId");
     User user = (User) request.getAttribute("user");
     Course course = (Course) request.getAttribute("course");
+    List<CoursePlan> coursePlanList = (List<CoursePlan>) request.getAttribute("coursePlanList");
 %>
 
 <html>
@@ -23,17 +26,20 @@
                     <a href='<%= "/another-class/lecture/" + classId %>' class="logo"><strong>CLASS</strong></a>
                 </header>
 
-                <section id="banner">
-                    <div class="content">
-                        <header>
-                            <h1><%=course.getName()%><br/>
-                            </h1>
-                            <p><%=course.getDescription()%></p>
-                        </header>
-                        <ul class="actions">
-                            <li><a href='<%= "/another-class/lecture/" + classId + "/plan" %>' class="button big">강의 계획</a></li>
-                        </ul>
-                    </div>
+                <section>
+                    <header class="main">
+                        <h1>강의 계획</h1>
+                    </header>
+
+                    <%
+                        for(CoursePlan coursePlan : coursePlanList) {
+                    %>
+                        <hr class="major" />
+                        <h2><%= coursePlan.getTitle() %></h2>
+                        <p><%= coursePlan.getDescription() %></p>
+                    <%
+                        }
+                    %>
                 </section>
             </div>
         </div>
