@@ -60,6 +60,11 @@ public class CourseRepository {
         jdbcTemplate.update(sql, course.getUuid(), course.getLogo_url(), course.getName(), course.getDescription(), course.getAdmin_id());
     }
 
+    public void update(String courseId, String title, String content) {
+        String sql = "UPDATE Courses SET name = ?, description = ? WHERE id = ?";
+        jdbcTemplate.update(sql, title, content, courseId);
+    }
+
     public int findId(String uuid) {
         String sql = "SELECT id FROM Courses WHERE uuid = ?";
         Integer id = jdbcTemplate.queryForObject(sql, new Object[]{uuid}, Integer.class);

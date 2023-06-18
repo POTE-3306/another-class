@@ -17,7 +17,6 @@ import java.util.List;
 @Service
 public class CourseService {
     private final CourseRepository courseRepository;
-    private ResourceLoader resourceLoader;
     private final ServletContext servletContext;
 
     @Autowired
@@ -29,6 +28,10 @@ public class CourseService {
     public void makeClass(Course course) {
         // Call the repository method passing the file path instead of the MultipartFile
         courseRepository.insert(course);
+    }
+
+    public void modifyClass(String courseId, String title, String content) {
+        courseRepository.update(courseId, title, content);
     }
 
     public String saveImage(MultipartFile image) {
