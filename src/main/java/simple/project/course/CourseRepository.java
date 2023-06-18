@@ -50,7 +50,7 @@ public class CourseRepository {
         return courseList;
     }
     public List<Course> findByUserId(int userId) {
-        String query = String.format("select B.id id, B.uuid uuid, B.name name, B.logo_url logo_url, B.description description, B.admin_id admin_id, B.code code, B.limit_time limit_time, B.lecture_days lecture_days, B.is_active is_active from Registrations A join Courses B on A.course_id=B.id where A.user_id=%d;", userId);
+        String query = String.format("select B.id id, B.uuid uuid, B.name name, B.logo_url logo_url, B.description description, B.admin_id admin_id, B.code code, B.limit_time limit_time, B.lecture_days lecture_days, B.is_active is_active from Registrations A join Courses B on A.course_id=B.id where A.user_id=%d and A.is_approved=true;", userId);
         List<Course> userCourse = jdbcTemplate.query(query, getRowMapper());
         return userCourse;
     }
