@@ -99,6 +99,7 @@ public class AttendanceRepository {
         List<Attendance> attendanceList = jdbcTemplate.query(query, getRowMapper());
         return attendanceList;
     }
+
  
     public HashMap<Integer, String> getAtendTime(int courseId){
         String sql = "select *\n" +
