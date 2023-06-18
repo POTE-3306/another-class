@@ -14,8 +14,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    HashMap<Integer, ArrayList<String>> map
-            = (HashMap<Integer, ArrayList<String>>) request.getAttribute("attendMap");
+//    HashMap<Integer, ArrayList<String>> map
+//            = (HashMap<Integer, ArrayList<String>>) request.getAttribute("attendMap");
 %>
 <html>
 <head>
@@ -24,9 +24,10 @@
 <body>
 <%
     User user = (User) request.getAttribute("user");
-    List<Integer> isAttendUserIds = (List<Integer>) request.getAttribute("isAttendUserIds");
+//    List<Integer> isAttendUserIds = (List<Integer>) request.getAttribute("isAttendUserIds");
 //  List<User> notAttendUserList = (List<User>) request.getAttribute("notAttendUserList");
     Course course = (Course) request.getAttribute("course");
+    List<Integer> userIds = (List<Integer>) request.getAttribute("attendList");
 //  String attendType = (String) request.getAttribute("type");
 //  Integer attendType = (Integer) request.getAttribute("attendType");
 %>
@@ -73,7 +74,7 @@
     <h1>선생님께 문의하세요.</h1>
 </div>
 <% } else {
-    if (isAttendUserIds.contains(user.getId())) {
+    if (userIds.contains(user.getId())) {
 %>
 <div>
   <h1>출결 완료</h1>

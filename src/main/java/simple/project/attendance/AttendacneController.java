@@ -58,10 +58,12 @@ public class AttendacneController {
 //            List<Integer> isAttendUserIds = isAttendUserList.stream().map(User::getId).collect(Collectors.toList());
 //            List<User> notAttendUserList = attendanceRepository.findNotAttendanceByCourseId(classId, isAttendUserIds);
             Course course = courseService.getCourseById(classId);
+            List<Integer> userIds = attendanceService.findUserIdBycourseIdToday(classId);
             if (user == null) {
                 return "index";
             }
             model.addAttribute("user", user);
+            model.addAttribute("attendList", userIds);
 //            model.addAttribute("isAttendUserList", isAttendUserList);
 //            model.addAttribute("notAttendUserList", notAttendUserList);
             model.addAttribute("course", course);
