@@ -14,7 +14,7 @@
     String state = new BigInteger(130, random).toString();
     String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
     apiURL += "&client_id=1F6dYqHfuH3HZA1vc1Ux";
-    apiURL += "&redirect_uri=http://localhost:8080/another-class/user/callback";
+    apiURL += "&redirect_uri=http://118.67.142.68:8080/another-class/user/callback";
     apiURL += "&state=" + state;
 %>
 <body class="landing is-preload">

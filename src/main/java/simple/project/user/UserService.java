@@ -33,7 +33,7 @@ public class UserService {
         String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
         apiURL += "client_id=1F6dYqHfuH3HZA1vc1Ux";
         apiURL += "&client_secret=XDdYuQObla";
-        apiURL += "&redirect_uri=http://localhost:8080/another-class/user/callback";
+        apiURL += "&redirect_uri=http://118.67.142.68:8080/another-class/user/callback";
         apiURL += "&code=" + code;
         apiURL += "&state=" + state;
         String access_token = "";

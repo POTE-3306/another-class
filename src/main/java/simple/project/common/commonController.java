@@ -14,7 +14,6 @@ import simple.project.user.User;
 import simple.project.user.UserService;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
