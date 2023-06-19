@@ -6,9 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import simple.project.course.Course;
 import simple.project.course.CourseService;
-import simple.project.user.JWToken;
 import simple.project.user.User;
-import simple.project.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;

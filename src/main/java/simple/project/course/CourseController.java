@@ -1,8 +1,5 @@
 package simple.project.course;
 
-import io.jsonwebtoken.Claims;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.RequestMapping;
 import simple.project.registration.RegistrationService;
-import simple.project.user.JWToken;
 import simple.project.user.User;
-import simple.project.user.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -20,32 +15,15 @@ import java.util.UUID;
 
 @Controller
 public class CourseController {
-    private static final Logger logger = LoggerFactory.getLogger(CourseController.class);
     private final CourseService courseService;
-    private final UserService userService;
-    private final JWToken jwToken;
     private final RegistrationService registrationService;
 
     @Autowired
-    public CourseController(CourseService courseService, UserService userService, JWToken jwToken, RegistrationService registrationService) {
+    public CourseController(CourseService courseService, RegistrationService registrationService) {
         this.courseService = courseService;
-        this.jwToken= jwToken;
-        this.userService =userService;
         this.registrationService = registrationService;
     }
 
-    @RequestMapping("class")
-    public String someMethod(HttpSession session, Model model){
-//        String token = (String) session.getAttribute("token");
-//        if (token == null){
-//            return "login/main";
-//        }
-        int userId = 2;
-//        model.addAttribute("userId", userId);
-//        List<Course> courseList = courseService.getByUserIdCourse(userId, user.isAdmin);
-//        model.addAttribute("courseList", courseList);
-        return "classList";
-    }
     @GetMapping("/course/make-class")
     public String makeClassPage(Model model, HttpServletRequest request) {
         User user = (User) request.getAttribute("user");

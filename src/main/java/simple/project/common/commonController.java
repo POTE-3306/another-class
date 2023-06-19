@@ -45,7 +45,6 @@ public class commonController {
         try {
             Claims claims = jwToken.getClaims(token);
             User user = userService.getUserByToken(claims);
-
             if (user == null) {
                 return "index";
             }
@@ -57,7 +56,6 @@ public class commonController {
             }
             model.addAttribute("rate", rateMap);
             model.addAttribute("user", user);
-
         } catch (Exception e){
             e.printStackTrace();
             return "index";

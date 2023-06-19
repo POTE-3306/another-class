@@ -149,7 +149,6 @@
                             <li><a href='<%= "/another-class/lecture/" + classId + "/attendManage" %>'>출석관리</a></li>
                         </ul>
                     </li>
-
                     <%}%>
                 </ul>
             </nav>

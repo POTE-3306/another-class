@@ -73,54 +73,29 @@ public class lectureController {
 
     @RequestMapping("{class_id}/community")
     public String communityPage(
-            HttpSession session,
+            HttpServletRequest request,
             Model model,
             @PathVariable("class_id") String classId
     ) {
-        String token = (String) session.getAttribute("token");
-        if (token == null) {
-            return "index";
-        }
-        try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
-
-            if (user == null) {
-                return "index";
-            }
-            model.addAttribute("user", user);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "index";
-        }
+        User user = (User) request.getAttribute("user");
+        model.addAttribute("user", user);
         return String.format("redirect:/lecture/%s/community/notice", classId);
     }
 
     @RequestMapping("{class_id}/community/notice")
     public String communityNoticePage(
-            HttpSession session,
+            HttpServletRequest request,
             Model model,
             @PathVariable("class_id") String classId
     ) {
-        String token = (String) session.getAttribute("token");
+        User user = (User) request.getAttribute("user");
         Integer pageType = 1;
-        if (token == null) {
-            return "index";
-        }
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
             List<Post> postList = postService.getByClassIdAndBoardType(Integer.parseInt(classId), pageType);
-
-            if (user == null) {
-                return "index";
-            }
             model.addAttribute("user", user);
             model.addAttribute("postList", postList);
             model.addAttribute("classId", classId);
             model.addAttribute("pageType", pageType);
-
         } catch (Exception e) {
             e.printStackTrace();
             return "index";
@@ -130,22 +105,14 @@ public class lectureController {
 
     @RequestMapping("{class_id}/community/task")
     public String communityTaskPage(
-            HttpSession session,
+            HttpServletRequest request,
             Model model,
             @PathVariable("class_id") String classId
     ) {
-        String token = (String) session.getAttribute("token");
+        User user = (User) request.getAttribute("user");
         Integer pageType = 2;
-        if (token == null) {
-            return "index";
-        }
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
             List<Post> postList = postService.getByClassIdAndBoardType(Integer.parseInt(classId), pageType);
-            if (user == null) {
-                return "index";
-            }
             model.addAttribute("user", user);
             model.addAttribute("postList", postList);
             model.addAttribute("classId", classId);
@@ -160,23 +127,14 @@ public class lectureController {
 
     @RequestMapping("{class_id}/community/talk")
     public String communityTalkPage(
-            HttpSession session,
+            HttpServletRequest request,
             Model model,
             @PathVariable("class_id") String classId
     ) {
-        String token = (String) session.getAttribute("token");
+        User user = (User) request.getAttribute("user");
         Integer pageType = 4;
-        if (token == null) {
-            return "index";
-        }
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
             List<Post> postList = postService.getByClassIdAndBoardType(Integer.parseInt(classId), pageType);
-
-            if (user == null) {
-                return "index";
-            }
             model.addAttribute("user", user);
             model.addAttribute("postList", postList);
             model.addAttribute("classId", classId);
@@ -191,28 +149,18 @@ public class lectureController {
 
     @RequestMapping("{class_id}/community/material")
     public String communityProgressPage(
-            HttpSession session,
+            HttpServletRequest request,
             Model model,
             @PathVariable("class_id") String classId
     ) {
-        String token = (String) session.getAttribute("token");
+        User user = (User) request.getAttribute("user");
         Integer pageType = 3;
-        if (token == null) {
-            return "index";
-        }
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
             List<Post> postList = postService.getByClassIdAndBoardType(Integer.parseInt(classId), pageType);
-
-            if (user == null) {
-                return "index";
-            }
             model.addAttribute("user", user);
             model.addAttribute("postList", postList);
             model.addAttribute("classId", classId);
             model.addAttribute("pageType", pageType);
-
         } catch (Exception e) {
             e.printStackTrace();
             return "index";
@@ -321,29 +269,18 @@ public class lectureController {
             @RequestParam("regId") int regId,
             @PathVariable("class_id") String classId,
             Model model,
-            HttpSession session
+            HttpServletRequest request
     ) {
-        String token = (String) session.getAttribute("token");
-        if (token == null) {
-            return "index";
-        }
+        User user = (User) request.getAttribute("user");
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
             Course course = courseService.getCourseById(Integer.parseInt(classId));
-            System.out.println("accept hi : " + regId);
             registrationService.updateReg(regId);
-            if (user == null) {
-                return "index";
-            }
             model.addAttribute("user", user);
             model.addAttribute("course", course);
-
         } catch (Exception e) {
             e.printStackTrace();
             return "index";
         }
-
         return String.format("redirect:/lecture/%s/manage", classId);
     }
 
@@ -358,25 +295,15 @@ public class lectureController {
 
     @RequestMapping("{class_id}/attend")
     public String managePage(
-            HttpSession session,
+            HttpServletRequest request,
             Model model,
             @PathVariable("class_id") String classId
     ) {
-        String token = (String) session.getAttribute("token");
-        if (token == null) {
-            return "index";
-        }
+        User user = (User) request.getAttribute("user");
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
             Course course = courseService.getCourseById(Integer.parseInt(classId));
-
-            if (user == null) {
-                return "index";
-            }
             model.addAttribute("user", user);
             model.addAttribute("course", course);
-
         } catch (Exception e) {
             e.printStackTrace();
             return "index";
@@ -388,8 +315,6 @@ public class lectureController {
     public String createPostPage(@RequestParam("pageType") Integer pageType,
                                  @PathVariable("class_id") String classId,
                                  Model model) {
-        System.out.println("page type :  " + pageType);
-        System.out.println("class id : " + classId);
         model.addAttribute("classId", classId);
         model.addAttribute("pageType", pageType);
         return "class/makePost";
@@ -400,34 +325,21 @@ public class lectureController {
                              @RequestParam("pageType") Integer pageType,
                              @RequestParam("title") String title,
                              @RequestParam("content") String content,
-                             HttpSession session,
+                             HttpServletRequest request,
                              Model model) {
         HashMap<Integer, String> pageTypeMapper = new HashMap<>();
+        User user = (User) request.getAttribute("user");
 
-        String token = (String) session.getAttribute("token");
-        if (token == null) {
-            return "index";
-        }
         try {
-            Claims claims = jwToken.getClaims(token);
-            User user = userService.getUserByToken(claims);
             Course course = courseService.getCourseById(Integer.parseInt(classId));
-
-            if (user == null) {
-                return "index";
-            }
             model.addAttribute("user", user);
             model.addAttribute("course", course);
 
-            System.out.println("call insert");
-            System.out.println("pageType : " + pageType);
             pageTypeMapper.put(1, "notice");
             pageTypeMapper.put(2, "task");
             pageTypeMapper.put(4, "talk");
             pageTypeMapper.put(3, "material");
             postService.insertPost(Integer.parseInt(classId), user.getId(), title, content, pageType);
-
-
         } catch (Exception e) {
             e.printStackTrace();
             return "index";
