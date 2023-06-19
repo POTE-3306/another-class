@@ -7,6 +7,9 @@
     PostDto postDto = (PostDto) request.getAttribute("postDto");
     User user = (User) request.getAttribute("user");
     String boardType = (String) request.getAttribute("boardType");
+    String gobackType = boardType.toLowerCase();
+    if(gobackType.equals("chat")) gobackType="talk";
+    else if (gobackType.equals("assignment")) gobackType="task";
     int classId = (int) request.getAttribute("classId");
 %>
 <html>
@@ -44,7 +47,7 @@
                             <h2><%= postDto.getContent().replaceAll("\n", "<br/>") %></h2>
                         </div>
                     </div>
-                    <button onclick="goBack()">뒤로가기</button>
+                    <button onclick="window.location.href = '<%=String.format("/another-class/lecture/%d/community/%s", classId, gobackType)%>'">뒤로가기</button>
                 </section>
 
                 <section>

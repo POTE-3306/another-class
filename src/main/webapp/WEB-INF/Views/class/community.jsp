@@ -71,7 +71,8 @@
                                 int i = 1;
                                 for (Post post : postList) {
                             %>
-                            <tr onclick="goToPostDetail('<%= post.getId() %>', '<%= post.getBoardType() %>')">
+                            <tr style="transition: box-shadow 0.3s;" onmouseover="this.style.boxShadow='0 0 5px rgba(0, 0, 0, 0.3)';" onmouseout="this.style.boxShadow='none';" onclick="goToPostDetail('<%= post.getId() %>', '<%= post.getBoardType() %>')">
+<%--                            <tr onclick="goToPostDetail('<%= post.getId() %>', '<%= post.getBoardType() %>')">--%>
                                 <td><%= i++ %></td>
                                 <td><%= post.getTitle()%></td>
                                 <%
