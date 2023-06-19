@@ -31,7 +31,6 @@
                         <table class="alt">
                             <thead>
                             <tr>
-                                <th>RegId</th>
                                 <th>학생ID</th>
                                 <th>학생이름</th>
                                 <th>수락</th>
@@ -41,8 +40,6 @@
                             <tbody>
                             <% for (RegisterWaiting waiting : waitingList) { %>
                             <tr>
-                                <td><%= waiting.getRegId() %>
-                                </td>
                                 <td><%= waiting.getUserId() %>
                                 </td>
                                 <td><%= waiting.getUserName() %>

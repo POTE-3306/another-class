@@ -61,15 +61,18 @@
                         <table class="alt">
                             <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>게시번호</th>
                                 <th>제목</th>
                                 <th>내용</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <% for (Post post : postList) { %>
+                            <%
+                                int i = 1;
+                                for (Post post : postList) {
+                            %>
                             <tr onclick="goToPostDetail('<%= post.getId() %>', '<%= post.getBoardType() %>')">
-                                <td><%= post.getId() %></td>
+                                <td><%= i++ %></td>
                                 <td><%= post.getTitle()%></td>
                                 <%
                                     String content = post.getContent();

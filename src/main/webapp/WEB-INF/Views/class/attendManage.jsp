@@ -35,9 +35,6 @@
                         <table class="alt">
                             <thead>
                             <tr>
-                                <th>RegId</th>
-                                <th>수강과목ID</th>
-                                <th>학생ID</th>
                                 <th>학생이름</th>
                                 <th>금일출석여부</th>
                                 <th>출석률</th>
@@ -46,12 +43,6 @@
                             <tbody>
                             <% for (AtendUserDto student : attendList) { %>
                             <tr>
-                                <td><%= student.getId() %>
-                                </td>
-                                <td><%= student.getCourseId() %>
-                                </td>
-                                <td><%= student.getUserId() %>
-                                </td>
                                 <td><%= student.getName() %>
                                 </td>
                                 <td><%= (todayAttend.get(student.getUserId()) == null) ? "X" : todayAttend.get(student.getUserId()) %>
